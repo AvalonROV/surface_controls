@@ -1,0 +1,27 @@
+import os
+import pprint
+import pygame
+
+pygame.init()  # Initialise PyGame
+
+if pygame.joystick.get_init():
+    print("JOYCONNECTED")
+elif not pygame.joystick.get_init():
+    print("JOY is not connected.")
+JOY = pygame.joystick.Joystick(0)  # Create a joystick object
+JOY.init()  # Initialise the Joystick
+clock = pygame.time.Clock()  # Create a clock object to track time
+
+numaxes = joystick.get_numaxes() # Returns the number of axes on the controller
+axis = joystick.get_axis(i)  # get the analog value of the specified axis
+                             # number of axis goes in the place of i
+numbuttons = joystick.get_numbuttons()
+button = joystick.get_button(i) #number of button would go to i
+
+
+#remember to make message for controller not connected
+
+
+
+
+
