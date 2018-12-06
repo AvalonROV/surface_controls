@@ -2,6 +2,8 @@ import os
 import pprint
 import pygame
 
+import time
+
 pygame.init()  # Initialise PyGame
 
 if pygame.joystick.get_init():
