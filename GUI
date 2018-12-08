@@ -1,190 +1,121 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1167</width>
-    <height>600</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
-  </property>
-  <widget class="QPushButton" name="startButton">
-   <property name="geometry">
-    <rect>
-     <x>324</x>
-     <y>30</y>
-     <width>141</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Start recording </string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="endButton">
-   <property name="geometry">
-    <rect>
-     <x>470</x>
-     <y>30</y>
-     <width>151</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>End recording </string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="MainDisplay">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>100</y>
-     <width>561</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="BackDisplay">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>300</y>
-     <width>241</width>
-     <height>151</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="FrontDisplay">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>90</y>
-     <width>241</width>
-     <height>151</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="LeftDisplay">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>410</y>
-     <width>241</width>
-     <height>151</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="RightDisplay">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>410</y>
-     <width>241</width>
-     <height>151</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>270</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Back</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>60</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Front</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>70</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>MainDisplay</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>380</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Left</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>720</x>
-     <y>380</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Right</string>
-   </property>
-  </widget>
- </widget>
- <resources/>
- <connections/>
-</ui>
+import sys
+from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtCore import QTimer
+from PyQt5.uic import loadUi
+from PyQt5.QtGui import QPixmap, QImage
+import cv2
+
+
+
+
+class Webcome(QDialog):
+
+
+    def __init__(self):
+
+
+        super(Webcome,self).__init__()
+        loadUi('webcamera.ui',self)
+        self.image = None
+        self.startButton.clicked.connect(self.start_webcam)
+        self.endButton.clicked.connect(self.stop_webcam)
+        self.Front.clicked.connect(self.FrontA)
+        self.Front_2.clicked.connect(self.FrontB)
+        #self.Back.clicked.connect(self.BackA)
+        #self.Back_2.clicked.connect(self.BackB)
+        #self.Left.clicked.connect(self.LeftA)
+        #self.Left_2.clicked.connect(self.LeftB)
+        #self.Right.clicked.connect(self.RightA)
+        #self.Right_2.clicked.connect(self.RightB)
+
+
+    def start_webcam(self):
+        self.capture = cv2.VideoCapture(0)
+        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,500)
+        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,900)
+
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_frame)
+        self.timer.start(5)
+
+    def update_frame(self):
+        ret,self.image=self.capture.read()  #takes Video capture
+        self.image = cv2.flip(self.image, 1)
+        self.displayImage(self.image, 1)
+
+
+    def stop_webcam(self):
+        self.timer.stop()
+
+    def displayImage(self,img,window=1):
+        qformat = QImage.Format_Indexed8
+        if len(img.shape)== 3 : #[0] - rows,  [1] = columns , [2] - chanel less
+          if img.shape[2]==4 :
+            qformat = QImage.Format_RGBA8888
+          else:
+            qformat = QImage.Format_RGB888
+
+        outImage = QImage(img,img.shape[1],img.shape[0],img.strides[0],qformat)
+        #BGR>>RGB
+        outImage = outImage.rgbSwapped()
+
+        if window == 1:
+         self.MainDisplay.setPixmap(QPixmap.fromImage(outImage))
+         self.MainDisplay.setScaledContents(True)
+         self.MainDisplay_2.setPixmap(QPixmap.fromImage(outImage))
+         self.MainDisplay_2.setScaledContents(True)
+
+    def FrontA (self):
+        screen = "Front"
+        if screen1 == "Front_2":
+         print("lol1")
+         self.Front_2.hide()
+        #self.Right.show()
+        #self.Left.show()
+        #self.Back.show()
+        print(screen)
+
+    def FrontB (self):
+        screen1 = "Front_2"
+        if screen == "Front":
+         print("lol")
+         self.Front.hide()
+        # self.Right.show()
+        # self.Left.show()
+        # self.Back.show()
+        print(screen1)
+
+
+    #def BackA (self):
+
+
+  #  def BackB (self):
+
+
+   # def LeftA (self):
+
+
+  #  def LeftB (self):
+
+
+  #  def RightA (self):
+
+
+   # def RightB (self):
+
+        #self.Front_2.hide()
+       # self.Right.show()
+       # self.Left.show()
+       # self.Back.show()
+
+
+
+if __name__ == '__main__':
+    screen = ""
+    screen1 = ""
+    app = QApplication(sys.argv)
+    window = Webcome()
+    window.setWindowTitle("Avalon Graphical Interface");
+    window.show()
+    window.showFullScreen()
+    sys.exit(app.exec_())
