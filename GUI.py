@@ -9,7 +9,8 @@ import cv2
 
 
 class Webcome(QDialog):
-
+    screen = " ";
+    screen1 = "yes";
 
     def __init__(self):
 
@@ -50,7 +51,7 @@ class Webcome(QDialog):
     def displayImage(self,img,window=1):
         qformat = QImage.Format_Indexed8
         if len(img.shape)== 3 : #[0] - rows,  [1] = columns , [2] - chanel less
-          if img.shape[2]==4 :
+          if img.shape[2]== 4 :
             qformat = QImage.Format_RGBA8888
           else:
             qformat = QImage.Format_RGB888
@@ -66,24 +67,38 @@ class Webcome(QDialog):
          self.MainDisplay_2.setScaledContents(True)
 
     def FrontA (self):
-        screen = "Front"
-        if screen1 == "Front_2":
-         print("lol1")
-         self.Front_2.hide()
-        #self.Right.show()
-        #self.Left.show()
-        #self.Back.show()
+        self.ChangeScreen()
+        if "Front" == screen :
+           print("lol1")
+           self.Front_2.hide()
+
         print(screen)
 
     def FrontB (self):
-        screen1 = "Front_2"
-        if screen == "Front":
-         print("lol")
-         self.Front.hide()
+        if "Front" == screen :
+           print("lol")
+           self.Front.hide()
+
         # self.Right.show()
         # self.Left.show()
         # self.Back.show()
         print(screen1)
+
+    def ChangeScreen (self):
+        global screen
+        screen = "Front"
+
+    def ChangeScreen1 (self):
+        global screen1
+        screen1 = "Front"
+
+
+
+
+
+
+
+
 
 
     #def BackA (self):
@@ -111,8 +126,6 @@ class Webcome(QDialog):
 
 
 if __name__ == '__main__':
-    screen = ""
-    screen1 = ""
     app = QApplication(sys.argv)
     window = Webcome()
     window.setWindowTitle("Avalon Graphical Interface");
