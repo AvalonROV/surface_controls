@@ -4,18 +4,15 @@ from PyQt5.QtCore import QTimer
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap, QImage
 import cv2
-import time
 
 
 
 
 class Webcome(QDialog):
     screen = " ";
-    screen1 = "yes";
+    screen1 = " ";
 
     def __init__(self):
-
-
         super(Webcome,self).__init__()
         loadUi('webcamera.ui',self)
         self.image = None
@@ -23,13 +20,12 @@ class Webcome(QDialog):
         self.endButton.clicked.connect(self.stop_webcam)
         self.Front.clicked.connect(self.FrontA)
         self.Front_2.clicked.connect(self.FrontB)
-        #self.Back.clicked.connect(self.BackA)
-        #self.Back_2.clicked.connect(self.BackB)
-        #self.Left.clicked.connect(self.LeftA)
-        #self.Left_2.clicked.connect(self.LeftB)
-        #self.Right.clicked.connect(self.RightA)
-        #self.Right_2.clicked.connect(self.RightB)
-
+        self.Back.clicked.connect(self.BackA)
+        self.Back_2.clicked.connect(self.BackB)
+       # self.Left.clicked.connect(self.LeftA)
+       # self.Left_2.clicked.connect(self.LeftB)
+       # self.Right.clicked.connect(self.RightA)
+       # self.Right_2.clicked.connect(self.RightB)
 
     def start_webcam(self):
         self.capture = cv2.VideoCapture(0)
@@ -68,31 +64,53 @@ class Webcome(QDialog):
          self.MainDisplay_2.setScaledContents(True)
 
     def FrontA (self):
-        self.ChangeScreen()
+        self.ChangeScreenF()
         if "Front" == screen :
-           print("lol1")
+           print(screen)
            self.Front_2.hide()
-
-        print(screen)
+           self.Back.show()
+           self.Back_2.show()
 
     def FrontB (self):
-        if "Front" == screen :
-           print("lol")
+        self.ChangeScreenF1()
+        if "Front" == screen1 :
+           print(screen1)
            self.Front.hide()
+           self.Back.show()
+           self.Back_2.show()
 
-        # self.Right.show()
-        # self.Left.show()
-        # self.Back.show()
-        print(screen1)
+    def BackA (self):
+        self.ChangeScreenB()
+        if "Back" == screen :
+            print(screen)
+            self.Back_2.hide()
+            self.Front.show()
+            self.Front_2.show()
 
-    def ChangeScreen (self):
+    def BackB (self):
+        self.ChangeScreenB1()
+        if "Back" == screen1 :
+            print(screen1)
+            self.Back.hide()
+            self.Front.show()
+            self.Front_2.show()
+
+
+    def ChangeScreenF (self):
         global screen
         screen = "Front"
 
-    def ChangeScreen1 (self):
+    def ChangeScreenF1 (self):
         global screen1
         screen1 = "Front"
 
+    def ChangeScreenB (self) :
+        global screen
+        screen = "Back"
+
+    def ChangeScreenB1 (self):
+        global screen1
+        screen1 = "Back"
 
 
 
@@ -102,10 +120,6 @@ class Webcome(QDialog):
 
 
 
-    #def BackA (self):
-
-
-  #  def BackB (self):
 
 
    # def LeftA (self):
