@@ -1,3 +1,6 @@
+import serial
+import sys 
+
 class SerialComms:
     """
     ........................
@@ -5,17 +8,15 @@ class SerialComms:
     baud_rate ---> {9600, 152000.. etc}
     
     """
-    import serial
     #intialize pySerial
     def __init__(self, port, baud_rate = 9600):
-        
-        self.port = port
-        self.baud_rate = baud_rate
+    
         self.ser = serial.Serial(port, baudrate = baud_rate, timeout = 1)
         
-    #Test function for potentiometer   
+    def end_comms(self):
+        self.ser.close()
+    
     def getPotentiometerValues(self):
-        
         self.ser.write('g'.encode('ascii'))
         arduinoData = self.ser.readline().strip().decode('ascii')
         return arduinoData
@@ -30,9 +31,12 @@ class SerialComms:
     def getSingleThrusterValue(self, num = 0):
         self.ser.write('s'.encode('ascii'))
 
-
-        
-while(1):
-    Comms = SerialComms('COM3')
-    print(" To get speed --> enter 'v' \n To get thruster values --> 'T'")
-    userInput = input("Enter char")
+if __name__ == "__main__":
+    comms = SerialComms('COM6')
+    while(1):
+        try:
+            print(comms.getPotentiometerValues())
+        except:
+            comms.end_comms()
+            print("Port cLosed!")
+            sys.exit()
