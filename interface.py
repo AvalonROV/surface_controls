@@ -11,8 +11,11 @@ import cv2
 class Webcome(QDialog):
     screen = " ";
     screen1 = " ";
+    #caption = " ";
+
 
     def __init__(self):
+        self.camera = 1;
         super(Webcome,self).__init__()
         loadUi('webcamera.ui',self)
         self.image = None
@@ -28,18 +31,19 @@ class Webcome(QDialog):
        # self.Right_2.clicked.connect(self.RightB)
 
     def start_webcam(self):
-        self.capture = cv2.VideoCapture(0)
-        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,500)
-        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,900)
+        self.capture = cv2.VideoCapture(self.camera)
+        #self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,1080)#500
+        #self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,1920)#900
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(5)
 
     def update_frame(self):
-        ret,self.image=self.capture.read()  #takes Video capture
-        self.image = cv2.flip(self.image, 1)
-        self.displayImage(self.image, 1)
+        ret,self.image = self.capture.read()  #takes Video capture
+        #self.image = cv2.flip(self.image, 1)
+        #both_img = cv2.flip(self.image, -1)
+        self.displayImage(self.image)
 
 
     def stop_webcam(self):
@@ -97,20 +101,26 @@ class Webcome(QDialog):
 
 
     def ChangeScreenF (self):
+        self.camera = 2;
         global screen
         screen = "Front"
+        self.start_webcam()
 
     def ChangeScreenF1 (self):
         global screen1
         screen1 = "Front"
 
     def ChangeScreenB (self) :
+        self.camera = 1;
         global screen
         screen = "Back"
+        self.start_webcam()
 
     def ChangeScreenB1 (self):
         global screen1
         screen1 = "Back"
+
+
 
 
 
