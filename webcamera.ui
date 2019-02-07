@@ -13,32 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="startButton">
-   <property name="geometry">
-    <rect>
-     <x>774</x>
-     <y>10</y>
-     <width>141</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Start recording </string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="endButton">
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>10</y>
-     <width>151</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>End recording </string>
-   </property>
-  </widget>
   <widget class="QLabel" name="MainDisplay">
    <property name="geometry">
     <rect>
@@ -173,6 +147,116 @@
    </property>
    <property name="text">
     <string>Front</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>1530</x>
+     <y>90</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Depth</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>1530</x>
+     <y>130</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Temperature</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>1530</x>
+     <y>170</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>PH</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>1690</x>
+     <y>90</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser_2">
+   <property name="geometry">
+    <rect>
+     <x>1690</x>
+     <y>130</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser_3">
+   <property name="geometry">
+    <rect>
+     <x>1690</x>
+     <y>170</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>1760</x>
+     <y>870</y>
+     <width>121</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ARDUINO</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>1760</x>
+     <y>970</y>
+     <width>121</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Joystick</string>
    </property>
   </widget>
  </widget>
