@@ -1,263 +1,265 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1080</height>
+    <height>1076</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>MainWindow</string>
   </property>
-  <widget class="QLabel" name="MainDisplay">
-   <property name="geometry">
-    <rect>
-     <x>510</x>
-     <y>40</y>
-     <width>900</width>
-     <height>500</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="MainDisplay_2">
-   <property name="geometry">
-    <rect>
-     <x>510</x>
-     <y>560</y>
-     <width>900</width>
-     <height>500</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Front">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>90</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Front</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Back">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>180</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Back</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Left">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>270</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Left</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Right">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>360</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Right</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Right_2">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>900</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Right</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Left_2">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>810</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Left</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Back_2">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>720</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Back</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Front_2">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>630</y>
-     <width>75</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Front</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser">
-   <property name="geometry">
-    <rect>
-     <x>1690</x>
-     <y>90</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser_2">
-   <property name="geometry">
-    <rect>
-     <x>1690</x>
-     <y>130</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser_3">
-   <property name="geometry">
-    <rect>
-     <x>1690</x>
-     <y>170</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>1760</x>
-     <y>870</y>
-     <width>121</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>ARDUINO</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>1760</x>
-     <y>970</y>
-     <width>121</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Joystick</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>1550</x>
-     <y>80</y>
-     <width>121</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Depth</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>1550</x>
-     <y>120</y>
-     <width>161</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Temperature</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>1550</x>
-     <y>160</y>
-     <width>121</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>PH</string>
-   </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="MainDisplay">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>0</y>
+      <width>900</width>
+      <height>500</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="MainDisplay_2">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>510</y>
+      <width>900</width>
+      <height>475</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Front">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>60</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Front</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Back">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>150</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Left">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>240</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Left</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Right">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>330</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Right</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Right_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>860</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Right</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Left_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>770</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Left</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Back_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>680</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Front_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>590</y>
+      <width>75</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Front</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>1710</x>
+      <y>90</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_2">
+    <property name="geometry">
+     <rect>
+      <x>1710</x>
+      <y>130</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_3">
+    <property name="geometry">
+     <rect>
+      <x>1710</x>
+      <y>170</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1760</x>
+      <y>740</y>
+      <width>121</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ARDUINO</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>1760</x>
+      <y>840</y>
+      <width>121</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Joystick</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>1550</x>
+      <y>80</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Depth</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>1550</x>
+      <y>120</y>
+      <width>161</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Temperature</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1550</x>
+      <y>160</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>PH</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
