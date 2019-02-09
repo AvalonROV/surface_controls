@@ -1,5 +1,9 @@
 import serial
+import serial.tools.list_ports as ls_port
 import sys 
+
+def ls_COMports():
+    return [comport.device for comport in serial.tools.list_ports.comports()]
 
 class SerialComms:
     """
