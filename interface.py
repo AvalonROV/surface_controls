@@ -11,7 +11,6 @@ class get_video_feed(QThread):
         QThread.__init__(self)
         self.channel = channel
                
-        
     def get_new_frame(self):
         ret, frame = self.capture.read()
         
@@ -39,7 +38,22 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window,self).__init__()
         loadUi('webcamera.ui',self)
-        self.setWindowTitle("Avalon Graphical Interface");
+        
+        self.ui_init()
+        
+        #self.display_feed(0, 1)
+    
+        self.serial_commuincation_status = False
+        self.start_serial_coms()
+        
+        self.Joystick_status = False
+        
+        self.show()
+        
+    def ui_init(self):
+        
+        self.COMport_droplist_init()
+        self.COMport_list.currentIndexChanged.connect(self.start_serial_coms)
         '''
         self.Front.clicked.connect(self.FrontA)
         self.Front_2.clicked.connect(self.FrontB)
@@ -50,15 +64,20 @@ class Window(QMainWindow):
         
         #self.comms = serial_com.SerialComms('COM6')        
         
-        self.show()
-        self.display_feed(1, 2)
         
+    
     def closeEvent(self, event):
         print( "Exiting application...")
+        
         self.timer.stop()
+        self.COMport_timer.stop()
+        
         self.video_1.end_feed()
         self.video_2.end_feed()
-        #self.comms.end_comms()
+        
+        if self.serial_commuincation_status == True:
+            self.comms.end_comms()
+        
         event.accept()
         #sys.exit()
 
@@ -90,7 +109,40 @@ class Window(QMainWindow):
                 print("No feed avaliable for Display 2")
         except:
             pass
+    
+    def COMport_droplist_init(self):
+        self.ports_list = serial_com.ls_COMports()
+        self.COMport_list.addItems(self.ports_list)
         
+        self.COMport_timer = QTimer(self)
+        self.COMport_timer.timeout.connect(self.update_COMport_list)
+        self.COMport_timer.start(50)
+    
+    def update_COMport_list(self):
+        new_ports_list = serial_com.ls_COMports()
+        
+        if self.ports_list != new_ports_list:
+            for port in new_ports_list: #Adding new ports
+                if port not in self.ports_list:
+                    self.COMport_list.addItem(port)
+                    
+            for index in range(len(self.ports_list)): #Deleting removed ports
+                if self.ports_list[index] not in new_ports_list:
+                    self.COMport_list.removeItem(index)
+            
+            self.ports_list = new_ports_list
+    
+    def start_serial_coms(self):
+        if self.serial_commuincation_status == True:
+            self.comms.end_comms()
+        try:
+            self.comms = serial_com.SerialComms(str(self.COMport_list.currentText()))
+            print("Connected to: " + str(self.COMport_list.currentText()))
+            
+        except:
+            pass
+        
+   
     '''    
     def FrontA (self):
         self.ChangeScreenF()
@@ -144,7 +196,7 @@ class Window(QMainWindow):
     def ChangeScreenB1 (self):
         global screen1
         screen1 = "Back"
-    '''
+ '''
     
 if __name__ == '__main__':
     app = QApplication(sys.argv)
