@@ -37,11 +37,11 @@ class get_video_feed(QThread):
 class Window(QMainWindow):
     def __init__(self):
         super(Window,self).__init__()
-        loadUi('webcamera.ui',self)
+        loadUi('interface.ui',self)
         
         self.ui_init()
         
-        #self.display_feed(0, 1)
+        self.display_feed(0, 1)
     
         self.serial_commuincation_status = False
         self.start_serial_coms()
