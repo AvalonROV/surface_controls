@@ -5,7 +5,7 @@ import sys
 def ls_COMports():
     return [comport.device for comport in serial.tools.list_ports.comports()]
 
-class SerialComms:
+class Serial:
     """
     port  --> COM(X) for windows systems, dev/tty/USB(X) for linux based system
     baud_rate ---> {9600, 152000.. etc}
@@ -48,12 +48,20 @@ class SerialComms:
         payload = 'OTD\n'
         self.ser.write(payload.encode('ascii'))
     
+    def set_depth_pid_state(self, state):
+        payload = 'SDCS\n' + str(state) + '\n'
+        self.ser.write(payload.encode('ascii'))
+    
     def set_depth_pid(self, p, i, d):
         payload = 'SDC\n' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
+    def set_pitch_pid_state(self, state):
+        payload = 'SPCS\n' + str(state) + '\n'
+        self.ser.write(payload.encode('ascii'))
+    
     def set_pitch_pid(self, p, i, d):
-        payload = 'SDC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
+        payload = 'SPC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_depth_calibration(self, p, i, d):
