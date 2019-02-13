@@ -1,14 +1,49 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
-from PyQt5.QtCore import QTimer, QThread
+from PyQt5.QtCore import QTimer, QThread, pyqtSignal
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap, QImage   
 import cv2
+#import joystick
 import serial_com
+import pygame
+
+app = QApplication(sys.argv)
+
+'''
+pygame.init()   # Initialise PyGame
+my_joystick = pygame.joystick.Joystick(0)   # Create a joystick object
+my_joystick.init()  # Initialise the Joystick
+'''
+clock = pygame.time.Clock() # Create a clock object to track time
+
+
+
+pygame.display.init()
+pygame.joystick.init()
+pygame.joystick.Joystick(0).init()
+
+class joystick(QThread):
+    trigger = pyqtSignal()
+    
+    def __init__(self):
+        QThread.__init__(self, parent=app)
+
+    def run(self):
+        EXIT = False
+        while not EXIT:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    EXIT = True
+            #self.emit(SIGNAL('completed'))
+            self.trigger.emit()
+            clock.tick(30) #This determines how fast the frames change per second
+        pygame.quit() # This is used to quit pygame and use any internal program within the python
+        quit()
 
 class get_video_feed(QThread):
     def __init__(self, channel):
-        QThread.__init__(self)
+        QThread.__init__(self, parent=app)
         self.channel = channel
                
     def get_new_frame(self):
@@ -33,7 +68,7 @@ class get_video_feed(QThread):
     def end_feed(self):
         self.capture.release()
         print("Camera feed on channel " + str(self.channel) + " closed")
-    
+
 class Window(QMainWindow):
     def __init__(self):
         super(Window,self).__init__()
@@ -47,8 +82,28 @@ class Window(QMainWindow):
         self.start_serial_coms()
         
         self.Joystick_status = False
+        self.joystick_thread = joystick()
+        self.joystick_thread.trigger.connect(self.get_joystick_reading)
+        self.joystick_thread.start()
         
         self.show()
+        
+    def get_joystick_reading(self):
+        pygame.event.pump()
+        '''
+        self.X_Axis = my_joystick.get_axis(0)  # X_Axis- Axis 0
+        self.Y_Axis = my_joystick.get_axis(1)  # Y_Axis - Axis 1
+        self.Throttle = my_joystick.get_axis(2)
+        self.Yaw = my_joystick.get_axis(3)
+        self.Rudder = my_joystick.get_axis(4)
+        self.valve = my_joystick.get_button(4)  # Button 5
+
+        self.CW_button = my_joystick.get_button(5)  # Button 6
+        self.lift_bag = my_joystick.get_button(0) # Button 1
+        '''
+        self.hat =pygame.joystick.Joystick(0).get_hat(0)
+        
+        print(self.hat)
         
     def ui_init(self):
         
@@ -61,16 +116,14 @@ class Window(QMainWindow):
         self.Back_2.clicked.connect(self.BackB)
         #self.Arduino.clicked.connect(self.Arduino1)
         '''
-        
-        #self.comms = serial_com.SerialComms('COM6')        
-        
-        
+        #self.comms = serial_com.SerialComms('COM6')                
     
     def closeEvent(self, event):
         print( "Exiting application...")
         
         self.timer.stop()
         self.COMport_timer.stop()
+        self.joy.quit()
         
         self.video_1.end_feed()
         self.video_2.end_feed()
@@ -90,7 +143,7 @@ class Window(QMainWindow):
         
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
-        self.timer.start(50)
+        self.timer.start(1)
         
     def update_frame(self):
         try:
@@ -106,7 +159,8 @@ class Window(QMainWindow):
                 self.MainDisplay_2.setPixmap(QPixmap.fromImage(image))
                 self.MainDisplay_2.setScaledContents(True)
             else:
-                print("No feed avaliable for Display 2")
+                pass
+                #print("No feed avaliable for Display 2")
         except:
             pass
     
@@ -199,6 +253,5 @@ class Window(QMainWindow):
  '''
     
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
     GUI_window = Window()
     sys.exit(app.exec_())
