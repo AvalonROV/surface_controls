@@ -1,73 +1,41 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap, QImage   
 import cv2
-#import joystick
-import serial_com
-import pygame
-
-app = QApplication(sys.argv)
-
-'''
-pygame.init()   # Initialise PyGame
-my_joystick = pygame.joystick.Joystick(0)   # Create a joystick object
-my_joystick.init()  # Initialise the Joystick
-'''
-clock = pygame.time.Clock() # Create a clock object to track time
-
-
-
-pygame.display.init()
-pygame.joystick.init()
-pygame.joystick.Joystick(0).init()
-
-class joystick(QThread):
-    trigger = pyqtSignal()
-    
-    def __init__(self):
-        QThread.__init__(self, parent=app)
-
-    def run(self):
-        EXIT = False
-        while not EXIT:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    EXIT = True
-            #self.emit(SIGNAL('completed'))
-            self.trigger.emit()
-            clock.tick(30) #This determines how fast the frames change per second
-        pygame.quit() # This is used to quit pygame and use any internal program within the python
-        quit()
+import joystick
+import ROV_comms
+import time
 
 class get_video_feed(QThread):
-    def __init__(self, channel):
-        QThread.__init__(self, parent=app)
+    
+    signal = pyqtSignal(QImage)
+    
+    def __init__(self, channel, parent=None):
+        QThread.__init__(self, parent)
         self.channel = channel
-               
-    def get_new_frame(self):
-        ret, frame = self.capture.read()
-        
-        if ret:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            #frame = cv2.flip(frame, 1)
-            image = QImage(frame, frame.shape[1], frame.shape[0], 
-                           frame.strides[0], QImage.Format_RGB888)
-        else:
-            image = None
-        return ret, image
     
     def run(self):
         self.capture = cv2.VideoCapture(self.channel) 
-        #self.get_new_frame()
-    
-    def __del__(self):
-        self.wait()
+        
+        self.running = True
+        while self.running:
+            ret, frame = self.capture.read()
+        
+            if ret:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                #frame = cv2.flip(frame, 1)
+                image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                
+                self.signal.emit(image)
+            time.sleep(0.04)
     
     def end_feed(self):
+        self.running = False
         self.capture.release()
         print("Camera feed on channel " + str(self.channel) + " closed")
+    
 
 class Window(QMainWindow):
     def __init__(self):
@@ -76,34 +44,23 @@ class Window(QMainWindow):
         
         self.ui_init()
         
-        self.display_feed(0, 1)
-    
+        self.feed_1 = get_video_feed(0)
+        self.feed_1.signal.connect(self.display_feed_1)
+        self.feed_1.start()
+        
+        self.feed_2 = get_video_feed(1)
+        self.feed_2.signal.connect(self.display_feed_2)
+        self.feed_2.start()
+        
         self.serial_commuincation_status = False
         self.start_serial_coms()
         
         self.Joystick_status = False
-        self.joystick_thread = joystick()
-        self.joystick_thread.trigger.connect(self.get_joystick_reading)
+        self.joystick_thread = joystick.joystick()
+        self.joystick_thread.signal.connect(self.send_data)
         self.joystick_thread.start()
         
         self.show()
-        
-    def get_joystick_reading(self):
-        pygame.event.pump()
-        '''
-        self.X_Axis = my_joystick.get_axis(0)  # X_Axis- Axis 0
-        self.Y_Axis = my_joystick.get_axis(1)  # Y_Axis - Axis 1
-        self.Throttle = my_joystick.get_axis(2)
-        self.Yaw = my_joystick.get_axis(3)
-        self.Rudder = my_joystick.get_axis(4)
-        self.valve = my_joystick.get_button(4)  # Button 5
-
-        self.CW_button = my_joystick.get_button(5)  # Button 6
-        self.lift_bag = my_joystick.get_button(0) # Button 1
-        '''
-        self.hat =pygame.joystick.Joystick(0).get_hat(0)
-        
-        print(self.hat)
         
     def ui_init(self):
         
@@ -121,51 +78,38 @@ class Window(QMainWindow):
     def closeEvent(self, event):
         print( "Exiting application...")
         
-        self.timer.stop()
-        self.COMport_timer.stop()
-        self.joy.quit()
+        try:
+            self.joystick_thread.running = False
+        except:
+            pass
         
-        self.video_1.end_feed()
-        self.video_2.end_feed()
+        self.COMport_timer.stop()
+        
+        self.feed_1.end_feed()
+        self.feed_2.end_feed()
         
         if self.serial_commuincation_status == True:
             self.comms.end_comms()
         
         event.accept()
         #sys.exit()
-
-    def display_feed(self, channel_1, channel_2):
-        self.video_1 = get_video_feed(channel_1)
-        self.video_1.start()
         
-        self.video_2 = get_video_feed(channel_2)
-        self.video_2.start()
-        
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_frame)
-        self.timer.start(1)
-        
-    def update_frame(self):
+    def display_feed_1(self, image):
         try:
-            state, image = self.video_1.get_new_frame()
-            if state == True:
-                self.MainDisplay.setPixmap(QPixmap.fromImage(image))
-                self.MainDisplay.setScaledContents(True)
-            else:
-                print("No feed avaliable for Display 1")
-            
-            state, image = self.video_2.get_new_frame()
-            if state == True:
-                self.MainDisplay_2.setPixmap(QPixmap.fromImage(image))
-                self.MainDisplay_2.setScaledContents(True)
-            else:
-                pass
-                #print("No feed avaliable for Display 2")
+            self.MainDisplay.setPixmap(QPixmap.fromImage(image))
+            self.MainDisplay.setScaledContents(True)
         except:
-            pass
+            print("No feed avaliable for Display 1")
+    
+    def display_feed_2(self, image):
+        try:
+            self.MainDisplay_2.setPixmap(QPixmap.fromImage(image))
+            self.MainDisplay_2.setScaledContents(True)
+        except:
+            print("No feed avaliable for Display 2")
     
     def COMport_droplist_init(self):
-        self.ports_list = serial_com.ls_COMports()
+        self.ports_list = ROV_comms.ls_COMports()
         self.COMport_list.addItems(self.ports_list)
         
         self.COMport_timer = QTimer(self)
@@ -173,7 +117,7 @@ class Window(QMainWindow):
         self.COMport_timer.start(50)
     
     def update_COMport_list(self):
-        new_ports_list = serial_com.ls_COMports()
+        new_ports_list = ROV_comms.ls_COMports()
         
         if self.ports_list != new_ports_list:
             for port in new_ports_list: #Adding new ports
@@ -190,68 +134,24 @@ class Window(QMainWindow):
         if self.serial_commuincation_status == True:
             self.comms.end_comms()
         try:
-            self.comms = serial_com.SerialComms(str(self.COMport_list.currentText()))
+            self.comms = ROV_comms.SerialComms(str(self.COMport_list.currentText()))
             print("Connected to: " + str(self.COMport_list.currentText()))
             
         except:
             pass
         
-   
-    '''    
-    def FrontA (self):
-        self.ChangeScreenF()
-        if "Front" == screen :
-           print(screen)
-           self.Front_2.hide()
-           self.Back.show()
-           self.Back_2.show()
-
-    def FrontB (self):
-        self.ChangeScreenF1()
-        if "Front" == screen1 :
-           print(screen1)
-           self.Front.hide()
-           self.Back.show()
-           self.Back_2.show()
-
-    def BackA (self):
-        self.ChangeScreenB()
-        if "Back" == screen :
-            print(screen)
-            self.Back_2.hide()
-            self.Front.show()
-            self.Front_2.show()
-
-    def BackB (self):
-        self.ChangeScreenB1()
-        if "Back" == screen1 :
-            print(screen1)
-            self.Back.hide()
-            self.Front.show()
-            self.Front_2.show()
-
-    def ChangeScreenF (self):
-        self.camera = 0;
-        global screen
-        screen = "Front"
-        self.timer.stop()
-        self.start_webcam()
-
-    def ChangeScreenF1 (self):
-        global screen1
-        screen1 = "Front"
-
-    def ChangeScreenB (self) :
-        self.camera = 1;
-        global screen
-        screen = "Back"
-        self.start_webcam()
-
-    def ChangeScreenB1 (self):
-        global screen1
-        screen1 = "Back"
- '''
-    
+    def send_data(self, data):
+       print(data.values())
+       '''
+        self.thrustre_FL = self.power_factor * math.sin() + math.atan()
+        self.thrustre_FR = self.power_factor * math.cos() - math.atan()
+        self.thrustre_BR = self.power_factor * math.sin() + math.atan()
+        self.thrustre_BL = self.power_factor * math.cos() - math.atan()
+        
+        self.thrustre_VF = 0
+        self.thrustre_VB = 0
+        '''    
 if __name__ == '__main__':
+    app = QApplication(sys.argv)
     GUI_window = Window()
     sys.exit(app.exec_())
