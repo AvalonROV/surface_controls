@@ -10,8 +10,9 @@ class SerialComms:
     port  --> COM(X) for windows systems, dev/tty/USB(X) for linux based system
     baud_rate ---> {9600, 152000.. etc}
     """
-    def __init__(self, port, baud_rate = 115200):
-        self.ser = serial.Serial(port, baudrate = baud_rate, timeout = 1)
+    def __init__(self, baud_rate = 115200):
+        self.ser = serial.Serial()
+        self.ser.baudrate = 19200
     
     def update_port(self, new_port):
         self.ser.port = new_port
