@@ -2,6 +2,8 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from inputs import get_gamepad
 import math
 
+
+
 class joystick(QThread):
     
     values = {
@@ -23,37 +25,30 @@ class joystick(QThread):
             "ABS_HAT0Y": 0,
             }
     
-    trigger = pyqtSignal()
+    signal = pyqtSignal(dict)
     
     power_factor = 0.5
     
-    def __init__(self):
-        QThread.__init__(self)
-    
+    def __init__(self, parent=None):
+        QThread.__init__(self, parent)
+        
     def run(self):
-        
-        while(1):
-            events = get_gamepad()
-            for event in events:
-                self.values[event.code] = event.state
-            #print(event.ev_type, event.code, event.state)
-            #print(self.values.values()
-            
-            self.thrustre_FL = self.power_factor * math.sin() + math.atan()
-            self.thrustre_FR = self.power_factor * math.cos() - math.atan()
-            self.thrustre_BR = self.power_factor * math.sin() + math.atan()
-            self.thrustre_BL = self.power_factor * math.cos() - math.atan()
-            
-            self.thrustre_VF = 
-            self.thrustre_VB = 
-            
-            
-    def __del__(self):
-        self.wait()        
-    
-    def stop(self):
-        self._isRunning = False
-        
+        self.running = True
+        while self.running:
+            try:
+                events = get_gamepad()
+                for event in events:
+                    self.values[event.code] = event.state
+                #print(event.ev_type, event.code, event.state)
+                #print(self.values.values()
+                
+                
+                self.signal.emit(self.values)
+            except:
+                pass
+         
+        print("Joystick thread terminating")
+                   
 if __name__ == '__main__':
     joy = joystick()
     joy.start()
