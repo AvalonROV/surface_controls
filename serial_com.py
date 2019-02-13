@@ -25,38 +25,38 @@ class SerialComms:
         print("Serial port closed")
     
     def get_telemetry(self):
-        self.ser.write('GT'.encode('ascii'))
+        self.ser.write('GT\n'.encode('ascii'))
         data = self.ser.readline().strip().decode('ascii')
         return data
     
     def set_thrsuters(self, power):
-        payload = 'ST'
+        payload = 'ST\n'
         for value in power:
             payload += str(value)
         self.ser.write(payload.encode('ascii'))
     
     def set_camera(self, channel, ID):
-        payload = 'SC' + channel + ID
+        payload = 'SC' + channel + ID + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_gripper(self):
-        payload = 'SG'
+        payload = 'SG\n'
         self.ser.write(payload.encode('ascii'))
     
     def open_trap_door(self):
-        payload = 'OTD'
+        payload = 'OTD\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_depth_pid(self, p, i, d):
-        payload = 'SDC' + str(p) + ',' + str(i) + ',' + str(d)
+        payload = 'SDC\n' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_pitch_pid(self, p, i, d):
-        payload = 'SDC' + str(p) + ',' + str(i) + ',' + str(d)
+        payload = 'SDC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_depth_calibration(self, p, i, d):
-        payload = 'SD_trim'
+        payload = 'SD_trim\n'
         self.ser.write(payload.encode('ascii'))
         
 if __name__ == "__main__":
