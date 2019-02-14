@@ -14,6 +14,9 @@
    <string>Avalon Pilot GUI</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(0,41,59,255)</string>
+   </property>
    <widget class="QLabel" name="MainDisplay">
     <property name="geometry">
      <rect>
@@ -55,6 +58,16 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Front</string>
     </property>
@@ -67,6 +80,16 @@
       <width>75</width>
       <height>71</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
     </property>
     <property name="text">
      <string>Back</string>
@@ -81,6 +104,16 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Left</string>
     </property>
@@ -93,6 +126,16 @@
       <width>75</width>
       <height>71</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
     </property>
     <property name="text">
      <string>Right</string>
@@ -107,6 +150,16 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Right</string>
     </property>
@@ -119,6 +172,16 @@
       <width>75</width>
       <height>71</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
     </property>
     <property name="text">
      <string>Left</string>
@@ -133,6 +196,16 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Back</string>
     </property>
@@ -146,124 +219,46 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Front</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>1140</x>
-      <y>100</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Depth</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>1140</x>
-      <y>140</y>
-      <width>161</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Temperature</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>1140</x>
-      <y>180</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>pH</string>
-    </property>
-   </widget>
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>1330</x>
-      <y>30</y>
-      <width>471</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>100</number>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="MissionTime">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>20</y>
-      <width>111</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Mission Time</string>
     </property>
    </widget>
    <widget class="QComboBox" name="COMport_list">
     <property name="geometry">
      <rect>
-      <x>1740</x>
-      <y>110</y>
+      <x>1640</x>
+      <y>30</y>
       <width>81</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1410</x>
-      <y>100</y>
-      <width>321</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Serial communication port</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>1490</x>
-      <y>150</y>
-      <width>131</width>
+      <x>1420</x>
+      <y>20</y>
+      <width>211</width>
       <height>51</height>
      </rect>
     </property>
@@ -271,6 +266,44 @@
      <font>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
+    <property name="text">
+     <string>Serial COM port</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>80</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
     </property>
     <property name="text">
      <string>ROV status</string>
@@ -279,9 +312,9 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>1460</x>
-      <y>200</y>
-      <width>191</width>
+      <x>1420</x>
+      <y>140</y>
+      <width>211</width>
       <height>51</height>
      </rect>
     </property>
@@ -290,6 +323,16 @@
       <pointsize>16</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Joystick status</string>
     </property>
@@ -297,8 +340,8 @@
    <widget class="QLabel" name="serial_state_label">
     <property name="geometry">
      <rect>
-      <x>1650</x>
-      <y>150</y>
+      <x>1640</x>
+      <y>80</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -310,6 +353,9 @@
       <underline>false</underline>
       <strikeout>false</strikeout>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -327,8 +373,8 @@
    <widget class="QLabel" name="serial_state_label_2">
     <property name="geometry">
      <rect>
-      <x>1650</x>
-      <y>200</y>
+      <x>1640</x>
+      <y>140</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -338,6 +384,9 @@
       <pointsize>16</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+    </property>
     <property name="text">
      <string>Not Connected</string>
     </property>
@@ -345,13 +394,13 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="depth_label">
+   <widget class="QLabel" name="telemetry_label">
     <property name="geometry">
      <rect>
-      <x>1310</x>
-      <y>100</y>
-      <width>81</width>
-      <height>51</height>
+      <x>1150</x>
+      <y>20</y>
+      <width>241</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="font">
@@ -359,53 +408,21 @@
       <pointsize>16</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="temprature_label">
-    <property name="geometry">
-     <rect>
-      <x>1310</x>
-      <y>140</y>
-      <width>71</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
+    <property name="styleSheet">
+     <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="ph_label">
-    <property name="geometry">
-     <rect>
-      <x>1310</x>
-      <y>180</y>
-      <width>81</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>

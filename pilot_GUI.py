@@ -115,14 +115,27 @@ class Window(QMainWindow):
     def update_ui(self):    
         if self.serial_commuincation_status:
             self.serial_state_label.setText("Connected")
-            self.serial_state_label.setStyleSheet('background-color: green')
+            self.serial_state_label.setStyleSheet('''background-color: green;
+                                                  color: rgba(0,190,255,255);
+                                                  border-style: solid;
+                                                  border-radius: 3px;
+                                                  border-width: 0.5px;
+                                                  border-color:rgba(0,140,255,255);''')
         else:
             self.serial_state_label.setText("Not connected")
-            self.serial_state_label.setStyleSheet('background-color: red')
+            self.serial_state_label.setStyleSheet('''background-color: red;
+                                                  color: rgba(0,190,255,255);
+                                                  border-style: solid;
+                                                  border-radius: 3px;
+                                                  border-width: 0.5px;
+                                                  border-color:rgba(0,140,255,255);''')
         
-        self.depth_label.setText("1.23 m")
-        self.temprature_label.setText("21.6")
-        self.ph_label.setText("7.1")
+        telemtry_data = "Telemetry:\n"
+        telemtry_data += "Depth: " + str(1.24) + "m\n" 
+        telemtry_data += "Temprature: " + str(21.2) + "C\n"
+        telemtry_data += "pH: " + str(7.12)
+        
+        self.telemetry_label.setText(telemtry_data)
            
     def update_serial_COM_port(self):
         if str(self.COMport_list.currentText()) != "":
