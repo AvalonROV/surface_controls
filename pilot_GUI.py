@@ -7,6 +7,7 @@ import cv2
 import joystick
 import ROV_comms
 import time
+import random
 
 class get_video_feed(QThread):
     
@@ -42,7 +43,12 @@ class Window(QMainWindow):
         super(Window,self).__init__()
         loadUi('interface.ui',self)
         
-        self.ui_init()
+        self.serial_commuincation_status = False
+        self.comms = ROV_comms.Serial()
+        self.ls_COM_ports_thread = ROV_comms.ls_COM_ports()
+        self.ls_COM_ports_thread.signal.connect(self.update_COMport_list)
+        self.ls_COM_ports_thread.start()
+        self.ports_list = []
         
         self.feed_1 = get_video_feed(0)
         self.feed_1.signal.connect(self.display_feed_1)
@@ -52,20 +58,22 @@ class Window(QMainWindow):
         self.feed_2.signal.connect(self.display_feed_2)
         self.feed_2.start()
         
-        self.serial_commuincation_status = False
-        self.start_serial_coms()
-        
         self.Joystick_status = False
         self.joystick_thread = joystick.joystick()
         self.joystick_thread.signal.connect(self.send_data)
         self.joystick_thread.start()
+
+        #self.ui_init()
+        self.refresh_timer = QTimer(self)
+        self.refresh_timer.timeout.connect(self.update_ui)
+        self.refresh_timer.start(50)
         
         self.show()
         
-    def ui_init(self):
+    #def ui_init(self):
+        #self.COMport_droplist_init()
+        self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
         
-        self.COMport_droplist_init()
-        self.COMport_list.currentIndexChanged.connect(self.start_serial_coms)
         '''
         self.Front.clicked.connect(self.FrontA)
         self.Front_2.clicked.connect(self.FrontB)
@@ -74,25 +82,6 @@ class Window(QMainWindow):
         #self.Arduino.clicked.connect(self.Arduino1)
         '''
         #self.comms = serial_com.SerialComms('COM6')                
-    
-    def closeEvent(self, event):
-        print( "Exiting application...")
-        
-        try:
-            self.joystick_thread.running = False
-        except:
-            pass
-        
-        self.COMport_timer.stop()
-        
-        self.feed_1.end_feed()
-        self.feed_2.end_feed()
-        
-        if self.serial_commuincation_status == True:
-            self.comms.end_comms()
-        
-        event.accept()
-        #sys.exit()
         
     def display_feed_1(self, image):
         try:
@@ -106,39 +95,40 @@ class Window(QMainWindow):
             self.MainDisplay_2.setPixmap(QPixmap.fromImage(image))
             self.MainDisplay_2.setScaledContents(True)
         except:
-            print("No feed avaliable for Display 2")
+            print("No feed avaliable for Display 2")        
     
-    def COMport_droplist_init(self):
-        self.ports_list = ROV_comms.ls_COMports()
-        self.COMport_list.addItems(self.ports_list)
-        
-        self.COMport_timer = QTimer(self)
-        self.COMport_timer.timeout.connect(self.update_COMport_list)
-        self.COMport_timer.start(50)
-    
-    def update_COMport_list(self):
-        new_ports_list = ROV_comms.ls_COMports()
-        
+    def update_COMport_list(self, new_ports_list):
+        if str(self.COMport_list.currentText()) not in new_ports_list:
+            self.serial_commuincation_status = False
+            
         if self.ports_list != new_ports_list:
             for port in new_ports_list: #Adding new ports
                 if port not in self.ports_list:
                     self.COMport_list.addItem(port)
-                    
+                        
             for index in range(len(self.ports_list)): #Deleting removed ports
                 if self.ports_list[index] not in new_ports_list:
                     self.COMport_list.removeItem(index)
-            
+                
             self.ports_list = new_ports_list
-    
-    def start_serial_coms(self):
-        if self.serial_commuincation_status == True:
-            self.comms.end_comms()
-        try:
-            self.comms = ROV_comms.SerialComms(str(self.COMport_list.currentText()))
-            print("Connected to: " + str(self.COMport_list.currentText()))
-            
-        except:
-            pass
+
+    def update_ui(self):    
+        if self.serial_commuincation_status:
+            self.serial_state_label.setText("Connected")
+            self.serial_state_label.setStyleSheet('background-color: green')
+        else:
+            self.serial_state_label.setText("Not connected")
+            self.serial_state_label.setStyleSheet('background-color: red')
+        
+        self.depth_label.setText("1.23 m")
+        self.temprature_label.setText("21.6")
+        self.ph_label.setText("7.1")
+           
+    def update_serial_COM_port(self):
+        if str(self.COMport_list.currentText()) != "":
+           self.comms.update_port(str(self.COMport_list.currentText()))
+           self.serial_commuincation_status = True
+           print("Connected to: " + str(self.COMport_list.currentText()))
         
     def send_data(self, data):
        print(data.values())
@@ -150,7 +140,20 @@ class Window(QMainWindow):
         
         self.thrustre_VF = 0
         self.thrustre_VB = 0
-        '''    
+        '''
+    def closeEvent(self, event):
+        print( "Exiting application...")
+
+        self.joystick_thread.running = False
+        self.refresh_timer.stop()        
+        self.feed_1.end_feed()
+        self.feed_2.end_feed()
+        
+        if self.serial_commuincation_status == True:
+            self.comms.end_comms()
+        
+        event.accept()
+        #sys.exit()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     GUI_window = Window()
