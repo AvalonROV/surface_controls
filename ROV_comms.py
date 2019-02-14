@@ -1,9 +1,25 @@
 import serial
 import serial.tools.list_ports as ls_port
+from PyQt5.QtCore import QThread, pyqtSignal
 import sys 
 
-def ls_COMports():
-    return [comport.device for comport in serial.tools.list_ports.comports()]
+class ls_COM_ports(QThread):
+    signal = pyqtSignal(list)
+    
+    def __init__(self, parent=None):
+        QThread.__init__(self, parent)
+        self.old_list = []
+        
+    def run(self):
+        self.running = True
+        while self.running:
+            new_list = [comport.device for comport in serial.tools.list_ports.comports()]
+            if self.old_list != new_list:
+                self.signal.emit(new_list)
+                self.old_list = new_list
+                print(self.old_list)
+            
+        print("Port listing thread terminating")
 
 class Serial:
     """
@@ -12,15 +28,18 @@ class Serial:
     """
     def __init__(self, baud_rate = 115200):
         self.ser = serial.Serial()
-        self.ser.baudrate = 19200
+        self.ser.baudrate = baud_rate
     
     def update_port(self, new_port):
         self.ser.port = new_port
         print("Serial port changed to:" + new_port)
     
     def is_open(self):
-        return self.ser.is_open()
-    
+        if self.ser.port == None:
+            return False
+        else:
+            return True
+        
     def end_comms(self):
         self.ser.close()
         print("Serial port closed")
