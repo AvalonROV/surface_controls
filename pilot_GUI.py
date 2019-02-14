@@ -7,7 +7,7 @@ import cv2
 import joystick
 import ROV_comms
 import time
-import random
+import math
 
 class get_video_feed(QThread):
     
@@ -60,28 +60,16 @@ class Window(QMainWindow):
         
         self.Joystick_status = False
         self.joystick_thread = joystick.joystick()
-        self.joystick_thread.signal.connect(self.send_data)
+        self.joystick_thread.signal.connect(self.send_controls)
         self.joystick_thread.start()
 
-        #self.ui_init()
         self.refresh_timer = QTimer(self)
         self.refresh_timer.timeout.connect(self.update_ui)
         self.refresh_timer.start(50)
         
-        self.show()
-        
-    #def ui_init(self):
-        #self.COMport_droplist_init()
         self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
         
-        '''
-        self.Front.clicked.connect(self.FrontA)
-        self.Front_2.clicked.connect(self.FrontB)
-        self.Back.clicked.connect(self.BackA)
-        self.Back_2.clicked.connect(self.BackB)
-        #self.Arduino.clicked.connect(self.Arduino1)
-        '''
-        #self.comms = serial_com.SerialComms('COM6')                
+        self.show()              
         
     def display_feed_1(self, image):
         try:
@@ -112,7 +100,15 @@ class Window(QMainWindow):
                 
             self.ports_list = new_ports_list
 
-    def update_ui(self):    
+    def update_ui(self):
+        '''
+        self.FL_thruster_label.setText(self.thrustre_FL)
+        self.FR_thruster_label.setText(self.thrustre_FR)
+        self.BR_thruster_label.setText(self.thrustre_BR)
+        self.BL_thruster_label.setText(self.thrustre_BL)
+        self.VF_thruster_label.setText(self.thrustre_VF)
+        self.VB_thruster_label.setText(self.thrustre_VB)
+        '''
         if self.serial_commuincation_status:
             self.serial_state_label.setText("Connected")
             self.serial_state_label.setStyleSheet('''background-color: green;
@@ -143,21 +139,23 @@ class Window(QMainWindow):
            self.serial_commuincation_status = True
            print("Connected to: " + str(self.COMport_list.currentText()))
         
-    def send_data(self, data):
-       print(data.values())
-       '''
-        self.thrustre_FL = self.power_factor * math.sin() + math.atan()
-        self.thrustre_FR = self.power_factor * math.cos() - math.atan()
-        self.thrustre_BR = self.power_factor * math.sin() + math.atan()
-        self.thrustre_BL = self.power_factor * math.cos() - math.atan()
+    def send_controls(self, data):
+        print(data["ABS_X"], data["ABS_Y"], data["ABS_RX"], data["ABS_RY"])
+       
+        '''
+        self.thrustre_FL = 1500 + self.FL_flip + self.power_factor * math.sin() + math.atan()
+        self.thrustre_FR = 1500 + self.FR_flip + self.power_factor * math.cos() - math.atan()
+        self.thrustre_BR = 1500 + self.BR_flip + self.power_factor * math.sin() + math.atan()
+        self.thrustre_BL = 1500 + self.BL_flip + self.power_factor * math.cos() - math.atan()
         
-        self.thrustre_VF = 0
-        self.thrustre_VB = 0
+        sel1f.thrustre_VF = 1500 + self.VF_flip + 
+        self.thrustre_VB = 1500 + self.VB_flip + 
         '''
     def closeEvent(self, event):
         print( "Exiting application...")
 
         self.joystick_thread.running = False
+        self.ls_COM_ports_thread.running = False
         self.refresh_timer.stop()        
         self.feed_1.end_feed()
         self.feed_2.end_feed()
