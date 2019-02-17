@@ -27,7 +27,7 @@ class Serial:
     All messages sent from the ROV should be terminated with '\n'
     """
     def __init__(self, baud_rate = 115200):
-        self.ser = serial.Serial(timeout=1)
+        self.ser = serial.Serial(timeout=0.1)
         self.ser.baudrate = baud_rate
     
     def update_port(self, new_port):
@@ -45,20 +45,23 @@ class Serial:
     def get_telemetry(self):
         self.ser.write('GT\n'.encode('ascii'))
         data = self.ser.readline().strip().decode('ascii').split(',')
-        return {
-                "depth" : data[1] + "m",
-                "temprature" : data[2] + "C",
-                "ph" : data[3],
-                "pitch_angle" : data[4] + "deg",
-                "roll_angle" : data[5] + "deg"
+        if data[0] == "":
+            return{
+                "depth" : "N/A",
+                "temprature" : "N/A",
+                "ph" : "N/A",
+                "pitch_angle" : "N/A",
+                "roll_angle" : "N/A"
                 }
-        '''return {
-                "depth" : "1.23m",
-                "temprature" : "21.64C",
-                "ph" : "7.15",
-                "pitch_angle" : "0deg",
-                "roll_angle" : "0deg"
-                }'''
+        else:
+            return {
+                    "depth" : data[1] + "m",
+                    "temprature" : data[2] + "C",
+                    "ph" : data[3],
+                    "pitch_angle" : data[4] + "deg",
+                    "roll_angle" : data[5] + "deg"
+                    }
+        
     def set_thrsuters(self, power):
         payload = 'ST\n'
         for value in power:
