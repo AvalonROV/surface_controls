@@ -36,10 +36,7 @@ class Serial:
         print("Serial port changed to:" + new_port)
     
     def is_open(self):
-        if self.ser.port == None:
-            return False
-        else:
-            return True
+        return self.seris_open
         
     def end_comms(self):
         self.ser.close()
@@ -85,7 +82,7 @@ class Serial:
         self.ser.write(payload.encode('ascii'))
     
     def set_depth_pid(self, p, i, d):
-        payload = 'SDC\n' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
+        payload = 'SDC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_pitch_pid_state(self, state):
