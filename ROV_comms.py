@@ -96,8 +96,12 @@ class Serial:
         payload = 'SPC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
-    def set_depth_calibration(self, p, i, d):
+    def trim_depth_sensor(self):
         payload = 'SD_trim\n'
+        self.ser.write(payload.encode('ascii'))
+    
+    def trim_imu(self):
+        payload = 'SIMU_trim\n'
         self.ser.write(payload.encode('ascii'))
     
     def testing_function(self, payload):
