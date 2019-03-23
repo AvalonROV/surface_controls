@@ -42,8 +42,8 @@ class Serial:
         self.ser.close()
         print("Serial port closed")
     
-    def get_telemetry(self):
-        self.ser.write('GT\n'.encode('ascii'))
+    def get_telemetry(self): # Needs finishing
+        self.ser.write('SK\n'.encode('ascii'))
         data = self.ser.readline().strip().decode('ascii').split(',')
         if data[0] == "":
             return{
@@ -63,45 +63,43 @@ class Serial:
                     }
         
     def set_thrsuters(self, power):
-        payload = 'ST\n'
-        for value in power:
-            payload += str(value)
+        payload = 'SA' + power + '\n'
         self.ser.write(payload.encode('ascii'))
     
-    def set_camera(self, channel, ID):
-        payload = 'SC' + channel + ID + '\n'
+    def set_camera(self, channel_1, channel_2):
+        payload = 'SH' + channel_1 + channel_2 + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_gripper(self):
+        payload = 'SF\n'
+        self.ser.write(payload.encode('ascii'))
+    
+    def set_trap_door(self):
         payload = 'SG\n'
         self.ser.write(payload.encode('ascii'))
     
-    def open_trap_door(self):
-        payload = 'OTD\n'
-        self.ser.write(payload.encode('ascii'))
-    
     def set_depth_pid_state(self, state):
-        payload = 'SDCS\n' + str(state) + '\n'
+        payload = 'SD' + str(state) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_depth_pid(self, p, i, d):
-        payload = 'SDC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
+        payload = 'SB' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_pitch_pid_state(self, state):
-        payload = 'SPCS\n' + str(state) + '\n'
+        payload = 'SE' + str(state) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def set_pitch_pid(self, p, i, d):
-        payload = 'SPC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
+        payload = 'SC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
         self.ser.write(payload.encode('ascii'))
     
     def trim_depth_sensor(self):
-        payload = 'SD_trim\n'
+        payload = 'SI\n'
         self.ser.write(payload.encode('ascii'))
     
     def trim_imu(self):
-        payload = 'SIMU_trim\n'
+        payload = 'SJ\n'
         self.ser.write(payload.encode('ascii'))
     
     def testing_function(self, payload):
