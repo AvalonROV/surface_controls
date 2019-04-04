@@ -168,6 +168,7 @@ class Window(QMainWindow):
            print("Connected to: " + str(self.COMport_list.currentText()))
            
     def update_ui(self):
+        ''''
         if self.serial_commuincation_status:
             data = self.comms.get_telemetry()
             self.depth_label.setText(data["depth"])
@@ -177,38 +178,38 @@ class Window(QMainWindow):
             self.roll_angle_label.setText(data["roll_angle"])
             
             self.serial_state_label.setText("Connected")
-            self.serial_state_label.setStyleSheet('''background-color: green;
+            self.serial_state_label.setStyleSheet('background-color: green;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);''')
+                                                  border-color:rgba(0,140,255,255);')
         else:
             self.serial_state_label.setText("Not connected")
-            self.serial_state_label.setStyleSheet('''background-color: red;
+            self.serial_state_label.setStyleSheet('background-color: red;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);''')
+                                                  border-color:rgba(0,140,255,255);')
         
         if self.joystick_connection_state:
             self.joystick_state_label.setText("Connected")
-            self.joystick_state_label.setStyleSheet('''background-color: green;
+            self.joystick_state_label.setStyleSheet('background-color: green;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);''')
+                                                  border-color:rgba(0,140,255,255);')
         else:
             self.joystick_state_label.setText("Not connected")
-            self.joystick_state_label.setStyleSheet('''background-color: red;
+            self.joystick_state_label.setStyleSheet('background-color: red;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);''')
-            
+                                                  border-color:rgba(0,140,255,255);')
+         '''   
         pygame.event.pump()
         self.send_controls()
         
@@ -227,23 +228,24 @@ class Window(QMainWindow):
             self.RTY_Axis = self.my_joystick.get_axis(3) * -1
             self.vertical_power = self.my_joystick.get_axis(2)
             
-            self.thrustre_FL = int(1500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.FL_flip)
-            self.thrustre_BL = int(1500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.BL_flip)
+            self.thrustre_FL = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.FL_flip)
+            self.thrustre_BL = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.BL_flip)
             
-            self.thrustre_FR = int(1500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.FR_flip)
-            self.thrustre_BR = int(1500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.BR_flip)
+            self.thrustre_FR = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.FR_flip)
+            self.thrustre_BR = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.BR_flip)
             
-            self.thrustre_VF = int(1500 + self.vertical_power * self.vertical_factor * self.power_factor * self.VF_flip)
-            self.thrustre_VB = int(1500 + self.vertical_power * self.vertical_factor * self.power_factor * self.VB_flip)
+            self.thrustre_VF = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.VF_flip)
+            self.thrustre_VB = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.VB_flip)
             
-            string = "ST1" + str(self.thrustre_FL) 
-            string += "2" + str(self.thrustre_VF)
-            string += "3" + str(self.thrustre_FR)
-            string += "4" + str(self.thrustre_BR)
-            string += "5" + str(self.thrustre_VB)
-            string += "6" + str(self.thrustre_BL)
+            string = str(self.thrustre_BL)
+            string +=str(self.thrustre_VF)
+            string += str(self.thrustre_FL)
+            string += str(self.thrustre_VB)
+            string += str(self.thrustre_FR)
+            string += str(self.thrustre_BR)
             
             self.debug_response.setText(string)
+            self.comms.set_thrsuters(string)
         except:
             print("Joystick not connected")
             self.joystick_connection_state=False
