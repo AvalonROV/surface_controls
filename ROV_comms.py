@@ -1,5 +1,6 @@
 import serial
 import serial.tools.list_ports
+import time
 from PyQt5.QtCore import QThread, pyqtSignal
 
 class ls_COM_ports(QThread):
@@ -63,7 +64,7 @@ class Serial:
                     }
         
     def set_thrsuters(self, power):
-        payload = 'SA' + power + '\n'
+        payload = 'SA' + power + '!'
         self.ser.write(payload.encode('ascii'))
     
     def set_camera(self, channel_1, channel_2):
@@ -110,6 +111,7 @@ class Serial:
         
 if __name__ == "__main__":
     comms = Serial()
-    comms.update_port('COM7')
+    comms.update_port('COM11')
     while(1):
-        comms.testing_function("Hello World!")
+        comms.testing_function("SA500500500500500600!")
+        time.sleep(0.1)
