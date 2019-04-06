@@ -7,13 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1076</height>
+    <height>1058</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Avalon Pilot GUI</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(0,41,59,255)</string>
    </property>
@@ -21,15 +27,15 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
-      <width>1481</width>
-      <height>1041</height>
+      <y>10</y>
+      <width>1291</width>
+      <height>921</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="Main_tab">
      <attribute name="title">
       <string>Main</string>
      </attribute>
@@ -53,9 +59,9 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>560</y>
+        <y>590</y>
         <width>831</width>
-        <height>441</height>
+        <height>271</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -268,7 +274,7 @@
      <widget class="QPushButton" name="Right_6">
       <property name="geometry">
        <rect>
-        <x>1250</x>
+        <x>1060</x>
         <y>30</y>
         <width>201</width>
         <height>131</height>
@@ -296,7 +302,7 @@
      <widget class="QPushButton" name="Right_7">
       <property name="geometry">
        <rect>
-        <x>1250</x>
+        <x>1070</x>
         <y>220</y>
         <width>201</width>
         <height>121</height>
@@ -326,682 +332,40 @@
      <attribute name="title">
       <string>Settings</string>
      </attribute>
-     <widget class="QWidget" name="gridLayoutWidget_4">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>778</y>
-        <width>274</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="1" column="4">
-        <widget class="QLabel" name="FR_thruster_label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-         </property>
-         <property name="text">
-          <string>1500</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="FL_thruster_label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-         </property>
-         <property name="text">
-          <string>1500</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="VF_thruster_label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-         </property>
-         <property name="text">
-          <string>1500</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="4">
-        <widget class="QLabel" name="BR_thruster_label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-         </property>
-         <property name="text">
-          <string>1500</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLabel" name="VB_thruster_label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-         </property>
-         <property name="text">
-          <string>1500</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="BL_thruster_label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-         </property>
-         <property name="text">
-          <string>1500</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="3">
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="4">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_2">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>380</y>
-        <width>362</width>
-        <height>291</height>
+        <y>550</y>
+        <width>131</width>
+        <height>199</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_13">
+      <layout class="QVBoxLayout" name="verticalLayout_22">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_12">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_25">
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255)</string>
-             </property>
-             <property name="text">
-              <string>Edit thrusters</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="edit_thruster_checkbox">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_11">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_19">
-             <item>
-              <widget class="QLabel" name="label_81">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Front Left</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="flip_FL_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton:!pressed{
-     background-color:  rgba(0,255,255,100);
-color: rgba(0,190,255,255);
-border-style: solid;
-border-radius: 3px;
-border-width: 0.5px;
-border-color: 
-rgba(0,140,255,255);
- }
-QPushButton:hover{
-     background-color: rgb(0, 92, 255);
- }</string>
-               </property>
-               <property name="text">
-                <string>Flip</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_21">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_20">
-             <item>
-              <widget class="QLabel" name="label_80">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Front Right</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="flip_FR_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton:!pressed{
-     background-color:  rgba(0,255,255,100);
-color: rgba(0,190,255,255);
-border-style: solid;
-border-radius: 3px;
-border-width: 0.5px;
-border-color: 
-rgba(0,140,255,255);
- }
-QPushButton:hover{
-     background-color: rgb(0, 92, 255);
- }</string>
-               </property>
-               <property name="text">
-                <string>Flip</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_24">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_21">
-             <item>
-              <widget class="QLabel" name="label_72">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Back Right</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="flip_BR_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton:!pressed{
-     background-color:  rgba(0,255,255,100);
-color: rgba(0,190,255,255);
-border-style: solid;
-border-radius: 3px;
-border-width: 0.5px;
-border-color: 
-rgba(0,140,255,255);
- }
-QPushButton:hover{
-     background-color: rgb(0, 92, 255);
- }</string>
-               </property>
-               <property name="text">
-                <string>Flip</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_25">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_22">
-             <item>
-              <widget class="QLabel" name="label_73">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Back Left</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="flip_BL_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton:!pressed{
-     background-color:  rgba(0,255,255,100);
-color: rgba(0,190,255,255);
-border-style: solid;
-border-radius: 3px;
-border-width: 0.5px;
-border-color: 
-rgba(0,140,255,255);
- }
-QPushButton:hover{
-     background-color: rgb(0, 92, 255);
- }</string>
-               </property>
-               <property name="text">
-                <string>Flip</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_26">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_23">
-             <item>
-              <widget class="QLabel" name="label_79">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Vertical Front</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="flip_VF_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton:!pressed{
-     background-color:  rgba(0,255,255,100);
-color: rgba(0,190,255,255);
-border-style: solid;
-border-radius: 3px;
-border-width: 0.5px;
-border-color: 
-rgba(0,140,255,255);
- }
-QPushButton:hover{
-     background-color: rgb(0, 92, 255);
- }</string>
-               </property>
-               <property name="text">
-                <string>Flip</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_27">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_24">
-             <item>
-              <widget class="QLabel" name="label_76">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Vertical Back</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="flip_VB_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton:!pressed{
-     background-color:  rgba(0,255,255,100);
-color: rgba(0,190,255,255);
-border-style: solid;
-border-radius: 3px;
-border-width: 0.5px;
-border-color: 
-rgba(0,140,255,255);
- }
-QPushButton:hover{
-     background-color: rgb(0, 92, 255);
- }</string>
-               </property>
-               <property name="text">
-                <string>Flip</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_28">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-        </layout>
+        <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+         </property>
+         <property name="text">
+          <string>Depth Controller</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_4">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>40</y>
-        <width>443</width>
-        <height>275</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_18">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
+        <layout class="QVBoxLayout" name="verticalLayout_19">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
            <item>
-            <widget class="QLabel" name="label_15">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-             </property>
-             <property name="text">
-              <string>Depth Controller</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_16">
+            <layout class="QVBoxLayout" name="verticalLayout_12">
              <item>
               <widget class="QLabel" name="label_83">
                <property name="font">
@@ -1018,33 +382,6 @@ QPushButton:hover{
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="depth_enable_checkbox">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_6">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Preferred</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
-             <item>
               <widget class="QLabel" name="label_84">
                <property name="font">
                 <font>
@@ -1059,6 +396,17 @@ QPushButton:hover{
                </property>
               </widget>
              </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <widget class="QCheckBox" name="depth_enable_checkbox">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="QCheckBox" name="depth_edit_checkbox">
                <property name="text">
@@ -1066,125 +414,109 @@ QPushButton:hover{
                </property>
               </widget>
              </item>
-             <item>
-              <spacer name="horizontalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Preferred</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QLabel" name="label_66">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                 <property name="text">
-                  <string>P</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="p_depth_gain">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5">
-               <item>
-                <widget class="QLabel" name="label_68">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                 <property name="text">
-                  <string>I</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="i_depth_gain">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
-               <item>
-                <widget class="QLabel" name="label_74">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                 <property name="text">
-                  <string>D</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="d_depth_gain">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
             </layout>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_14">
+             <item>
+              <widget class="QLabel" name="label_66">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>P</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_68">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>I</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_74">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>D</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_18">
+             <item>
+              <widget class="QLineEdit" name="p_depth_gain">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="i_depth_gain">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="d_depth_gain">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_21">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_20">
            <item>
             <widget class="QPushButton" name="update_depth_controller_btn">
              <property name="font">
@@ -1241,129 +573,100 @@ QPushButton:hover{
          </item>
         </layout>
        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>550</y>
+        <width>131</width>
+        <height>199</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_26">
        <item>
-        <spacer name="horizontalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QLabel" name="label_26">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255)</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
+         <property name="text">
+          <string>Pitch Controller</string>
          </property>
-        </spacer>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_9">
+        <layout class="QVBoxLayout" name="verticalLayout_25">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
+          <layout class="QVBoxLayout" name="verticalLayout_24">
            <item>
-            <widget class="QLabel" name="label_26">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255)</string>
-             </property>
-             <property name="text">
-              <string>Pitch Controller</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_17">
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <widget class="QLabel" name="label_75">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Enable</string>
-               </property>
-              </widget>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <widget class="QLabel" name="label_75">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+                 </property>
+                 <property name="text">
+                  <string>Enable</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_82">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+                 </property>
+                 <property name="text">
+                  <string>Edit gains</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QCheckBox" name="pitch_enable_checkbox">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_7">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Preferred</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
+              <layout class="QVBoxLayout" name="verticalLayout_23">
+               <item>
+                <widget class="QCheckBox" name="pitch_enable_checkbox">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="pitch_edit_checkbox">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_14">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QLabel" name="label_82">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-               </property>
-               <property name="text">
-                <string>Edit gains</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="pitch_edit_checkbox">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Preferred</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <layout class="QVBoxLayout" name="verticalLayout_5">
                <item>
                 <widget class="QLabel" name="label_69">
                  <property name="font">
@@ -1380,22 +683,6 @@ QPushButton:hover{
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="p_pitch_gain">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_9">
-               <item>
                 <widget class="QLabel" name="label_70">
                  <property name="font">
                   <font>
@@ -1411,22 +698,6 @@ QPushButton:hover{
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="i_pitch_gain">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_10">
-               <item>
                 <widget class="QLabel" name="label_71">
                  <property name="font">
                   <font>
@@ -1438,6 +709,34 @@ QPushButton:hover{
                  </property>
                  <property name="text">
                   <string>D</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QLineEdit" name="p_pitch_gain">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="i_pitch_gain">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
                  </property>
                 </widget>
                </item>
@@ -1460,7 +759,7 @@ QPushButton:hover{
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
             <widget class="QPushButton" name="update_pitch_controller_btn">
              <property name="font">
@@ -1519,113 +818,857 @@ QPushButton:hover{
        </item>
       </layout>
      </widget>
-     <widget class="QLabel" name="label_78">
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>90</y>
+        <width>341</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="label_19">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255)</string>
+           </property>
+           <property name="text">
+            <string>Manual mode</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="manual_mode_checkbox">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_81">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Front Left</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_80">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Front Right</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_72">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Back Right</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_73">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Back Left</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_79">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Vertical Front</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_76">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Vertical Back</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QCheckBox" name="FL_flip_chkbox">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="FR_flip_chkbox">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="BR_flip_chkbox">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="BL_flip_chkbox">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="VF_flip_chkbox">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="VB_flip_chkbox">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <widget class="QLineEdit" name="FL_order">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="FR_order">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="BR_order">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="BL_order">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="VF_order">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="VB_order">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <widget class="QLineEdit" name="FL_manual_power">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="FR_manual_power">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="BR_manual_power">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="BL_manual_power">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="VF_manual_power">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="VB_manual_power">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>500</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>610</x>
-        <y>60</y>
-        <width>109</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-      </property>
-      <property name="text">
-       <string>Data exchange</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="debug_response">
-      <property name="geometry">
-       <rect>
-        <x>730</x>
-        <y>60</y>
-        <width>651</width>
-        <height>781</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_35">
-      <property name="geometry">
-       <rect>
-        <x>950</x>
         <y>10</y>
-        <width>121</width>
-        <height>31</height>
+        <width>641</width>
+        <height>801</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-      </property>
-      <property name="text">
-       <string>Debug Console</string>
-      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_28">
+       <item>
+        <widget class="QLabel" name="label_35">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+         </property>
+         <property name="text">
+          <string>Debug Console</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_27">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_78">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Data exchange</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextBrowser" name="debug_response">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_85">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+             <property name="text">
+              <string>Type here       </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>730</x>
-        <y>860</y>
-        <width>651</width>
-        <height>21</height>
+        <x>200</x>
+        <y>360</y>
+        <width>211</width>
+        <height>151</height>
        </rect>
       </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_85">
-      <property name="geometry">
-       <rect>
-        <x>620</x>
-        <y>860</y>
-        <width>81</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-      </property>
-      <property name="text">
-       <string>Type here</string>
-      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_157">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_73">
+         <item>
+          <spacer name="horizontalSpacer_10">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="VF_thruster_label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>1500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_17">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_130">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_59">
+           <item>
+            <widget class="QLabel" name="FL_thruster_label">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+             <property name="text">
+              <string>1500</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="FR_thruster_label">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+             <property name="text">
+              <string>1500</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_60">
+           <item>
+            <widget class="QLabel" name="BL_thruster_label">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+             <property name="text">
+              <string>1500</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="BR_thruster_label">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+             </property>
+             <property name="text">
+              <string>1500</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_74">
+         <item>
+          <spacer name="horizontalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="VB_thruster_label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>1500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_9">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>1550</x>
       <y>310</y>
       <width>215</width>
-      <height>160</height>
+      <height>166</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1834,13 +1877,13 @@ QPushButton:hover{
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>1600</x>
       <y>490</y>
       <width>105</width>
-      <height>72</height>
+      <height>75</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -1916,13 +1959,13 @@ QPushButton:hover{
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>1530</x>
       <y>160</y>
       <width>242</width>
-      <height>104</height>
+      <height>109</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -2067,24 +2110,10 @@ QPushButton:hover{
      </item>
     </layout>
    </widget>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
    <zorder>tabWidget</zorder>
-   <zorder>layoutWidget_5</zorder>
-   <zorder>label_8</zorder>
-   <zorder>depth_label</zorder>
-   <zorder>label_40</zorder>
-   <zorder>depth_label</zorder>
-   <zorder>label_41</zorder>
-   <zorder>temp_label</zorder>
-   <zorder>ph_label</zorder>
-   <zorder>pitch_angle_label</zorder>
-   <zorder>roll_angle_label</zorder>
-   <zorder>label_42</zorder>
-   <zorder>label_43</zorder>
-   <zorder>label_44</zorder>
-   <zorder>pushButton_4</zorder>
-   <zorder>pushButton_3</zorder>
-   <zorder>label_39</zorder>
-   <zorder>label_8</zorder>
   </widget>
  </widget>
  <resources/>
