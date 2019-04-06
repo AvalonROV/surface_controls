@@ -81,8 +81,6 @@ class Window(QMainWindow):
         self.setCentralWidget(ImageWidget(surface))
         loadUi('interface.ui',self)
         
-        self.load_variables()
-        
         self.serial_commuincation_status = False
         self.comms = ROV_comms.Serial()
         self.ls_COM_ports_thread = ROV_comms.ls_COM_ports()
@@ -106,28 +104,21 @@ class Window(QMainWindow):
             print("Joystick not connected")
             self.joystick_connection_state = False
         
+        self.load_config_file()
+        
         self.refresh_timer = QTimer(self)
         self.refresh_timer.timeout.connect(self.update_ui)
         self.refresh_timer.start(50)
         
         self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
         
-        self.depth_enable_checkbox.stateChanged.connect(self.enable_depth_controller)
-        self.update_depth_controller_btn.clicked.connect(self.set_depth_gains_to_update)
-        self.default_depth_controller_btn.clicked.connect(self.set_depth_gains_to_default)
-        
-        self.pitch_enable_checkbox.stateChanged.connect(self.enable_pitch_controller)
-        self.update_pitch_controller_btn.clicked.connect(self.set_pitch_gains_to_update)
-        self.default_pitch_controller_btn.clicked.connect(self.set_pitch_gains_to_default)
-        
-        
         #Thrusters flip checkboxes change state defintion 
-        self.FL_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_chkbox, 0))
-        self.FR_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FR_flip_chkbox, 1))
-        self.BR_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BR_flip_chkbox, 2))
-        self.BL_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BL_flip_chkbox, 3))
-        self.VF_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VF_flip_chkbox, 4))
-        self.VB_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VB_flip_chkbox, 5))
+        self.FL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_chkbox, 0))
+        self.FR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FR_flip_chkbox, 1))
+        self.BR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BR_flip_chkbox, 2))
+        self.BL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BL_flip_chkbox, 3))
+        self.VF_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VF_flip_chkbox, 4))
+        self.VB_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VB_flip_chkbox, 5))
         
         #Thrusters ordering line-edit initialization 
         self.FL_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.FL_order, 0))
@@ -144,8 +135,22 @@ class Window(QMainWindow):
         self.BL_manual_power.editingFinished.connect(self.manual_thrusters_control)
         self.VF_manual_power.editingFinished.connect(self.manual_thrusters_control)
         self.VB_manual_power.editingFinished.connect(self.manual_thrusters_control)
-                
-    def load_variables(self):
+        
+        self.depth_tune_checkbox.stateChanged.connect(lambda:self.change_input_state(self.depth_tune_checkbox, "depth"))
+        self.depth_enable_checkbox.stateChanged.connect(lambda:self.enable_controller(self.depth_enable_checkbox, "depth"))
+        self.p_depth_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("depth"))
+        self.i_depth_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("depth"))
+        self.d_depth_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("depth"))
+        #self.default_depth_controller_btn.clicked.connect(lambda:self.reset_controller_gains_to_default("depth"))
+        
+        self.pitch_tune_checkbox.stateChanged.connect(lambda:self.change_input_state(self.pitch_tune_checkbox, "pitch"))
+        self.pitch_enable_checkbox.stateChanged.connect(lambda:self.enable_controller(self.pitch_enable_checkbox, "pitch"))
+        self.p_pitch_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("pitch"))
+        self.i_pitch_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("pitch"))
+        self.d_pitch_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("pitch"))
+        #self.default_pitch_controller_btn.clicked.connect(lambda:self.reset_controller_gains_to_default("pitch")) 
+        
+    def load_config_file(self):
         #Loading thrusters flip from config file
         self.config = configparser.ConfigParser()
         self.config.read('rov_config.ini')
@@ -160,12 +165,12 @@ class Window(QMainWindow):
         self.thrusters_flip.append(int(self.config['Directions']['vb']))
         
         #Intiallizing thruters flipping checkboxes
-        self.FL_flip_chkbox.setChecked(False if self.thrusters_flip[0] == 1 else True)
-        self.FR_flip_chkbox.setChecked(False if self.thrusters_flip[1] == 1 else True)
-        self.BR_flip_chkbox.setChecked(False if self.thrusters_flip[2] == 1 else True)
-        self.BL_flip_chkbox.setChecked(False if self.thrusters_flip[3] == 1 else True)
-        self.VF_flip_chkbox.setChecked(False if self.thrusters_flip[4] == 1 else True)
-        self.VB_flip_chkbox.setChecked(False if self.thrusters_flip[5] == 1 else True)
+        self.FL_flip_checkbox.setChecked(False if self.thrusters_flip[0] == 1 else True)
+        self.FR_flip_checkbox.setChecked(False if self.thrusters_flip[1] == 1 else True)
+        self.BR_flip_checkbox.setChecked(False if self.thrusters_flip[2] == 1 else True)
+        self.BL_flip_checkbox.setChecked(False if self.thrusters_flip[3] == 1 else True)
+        self.VF_flip_checkbox.setChecked(False if self.thrusters_flip[4] == 1 else True)
+        self.VB_flip_checkbox.setChecked(False if self.thrusters_flip[5] == 1 else True)
         
         #Initiallizing thrusters order
         self.thrusters_order = []
@@ -182,7 +187,19 @@ class Window(QMainWindow):
         self.BL_order.setText(str(self.thrusters_order[3]))
         self.VF_order.setText(str(self.thrusters_order[4]))
         self.VB_order.setText(str(self.thrusters_order[5]))
-    
+        
+        self.depth_enable_checkbox.setChecked(True if self.config['depth']['state'] == "1" else False)
+        self.enable_controller(self.depth_enable_checkbox, "depth")
+        self.p_depth_gain_textbox.setText(self.config['depth']['p'])
+        self.i_depth_gain_textbox.setText(self.config['depth']['i'])
+        self.d_depth_gain_textbox.setText(self.config['depth']['d'])
+        
+        self.pitch_enable_checkbox.setChecked(True if self.config['pitch']['state'] == "1" else False)
+        self.enable_controller(self.pitch_enable_checkbox, "pitch")
+        self.p_pitch_gain_textbox.setText(self.config['pitch']['p'])
+        self.i_pitch_gain_textbox.setText(self.config['pitch']['i'])
+        self.d_pitch_gain_textbox.setText(self.config['pitch']['d'])
+        
     def display_feed_1(self, image):
         try:
             self.MainDisplay.setPixmap(QPixmap.fromImage(image))
@@ -357,25 +374,63 @@ class Window(QMainWindow):
         with open('rov_config.ini', 'w') as configfile:
             self.config.write(configfile)
     
-        
-    def enable_depth_controller(self):
+    def change_input_state(self, checkbox, obj):
+        if obj == "depth":
+            self.p_depth_gain_textbox.setReadOnly(not checkbox.checkState())
+            self.i_depth_gain_textbox.setReadOnly(not checkbox.checkState())
+            self.d_depth_gain_textbox.setReadOnly(not checkbox.checkState())
+        elif obj == "depth":
+            self.p_pitch_gain_textbox.setReadOnly(not checkbox.checkState())
+            self.i_pitch_gain_textbox.setReadOnly(not checkbox.checkState())
+            self.d_pitch_gain_textbox.setReadOnly(not checkbox.checkState())
+        elif obj == "thrusters":
+            print(5)
+       
+    def enable_controller(self, checkbox, controller):
         if self.serial_commuincation_status:
-            state = self.depth_edit_checkbox.isChecked()
-            self.comms.set_depth_pid_state(str(int(state)))
-    
-    def enable_pitch_controller(self):
-        if self.serial_commuincation_status:
-            state = self.pitch_edit_checkbox.isChecked()
-            self.comms.set_pitch_pid_state(str(int(state)))
-    
-    def set_depth_gains_to_update(self):
-        if self.depth_edit_checkbox.isChecked() and self.serial_commuincation_status:
-            self.comms.set_depth_pid(
-                self.p_depth_gain.text(), 
-                self.i_depth_gain.text(), 
-                self.d_depth_gain.text())
+            controller_state = checkbox.isChecked()
+            return_state = self.comms.set_pid_controller_state(controller, str(int(controller_state )))
+            self.debug_response.append(">> " + return_state) 
             
-    def set_depth_gains_to_default(self):
+            self.config[controller]["state"] = str(int(controller_state ))
+            with open('rov_config.ini', 'w') as configfile:
+                self.config.write(configfile)
+            
+        else:
+            self.debug_response.append("ERROR: Unable to enable controller, no comms available.")
+            
+    def change_controller_gains(self, controller):
+        if self.serial_commuincation_status:
+            if controller == "depth":
+                return_state = self.comms.set_pid_controller_gains(
+                        controller,
+                        self.p_depth_gain_textbox.text(), 
+                        self.i_depth_gain_textbox.text(), 
+                        self.d_depth_gain_textbox.text())
+                
+                self.config[controller]["p"] = self.p_depth_gain_textbox.text() 
+                self.config[controller]["i"] = self.i_depth_gain_textbox.text()
+                self.config[controller]["d"] = self.d_depth_gain_textbox.text()
+            elif controller == "pitch":
+                return_state = self.comms.set_pid_controller_gains(
+                        controller,
+                        self.p_pitch_gain_textbox.text(), 
+                        self.i_pitch_gain_textbox.text(), 
+                        self.d_pitch_gain_textbox.text())
+                
+                self.config[controller]["p"] = self.p_pitch_gain_textbox.text()
+                self.config[controller]["i"] = self.i_pitch_gain_textbox.text()
+                self.config[controller]["d"] = self.d_pitch_gain_textbox.text()
+            
+            self.debug_response.append(">> " + return_state)
+            
+            with open('rov_config.ini', 'w') as configfile:
+                self.config.write(configfile)
+        else:
+            self.debug_response.append("ERROR: Unable to chnage controller gains, no comms available.")
+            
+    '''      
+    def reset_controller_gains_to_default(self, controller):
         if self.depth_edit_checkbox.isChecked() and self.serial_commuincation_status:
             self.comms.set_depth_pid(
                 self.p_depth_gain_default, 
@@ -385,24 +440,8 @@ class Window(QMainWindow):
             self.p_depth_gain.setText(self.p_depth_gain_default)
             self.i_depth_gain.setText(self.i_depth_gain_default)
             self.d_depth_gain.setText(self.d_depth_gain_default)
-                
-    def set_pitch_gains_to_update(self):
-        if self.pitch_edit_checkbox.isChecked() and self.serial_commuincation_status:
-            self.comms.set_pitch_pid(
-                self.p_pitch_gain.text(), 
-                self.i_pitch_gain.text(), 
-                self.d_pitch_gain.text())
-    def set_pitch_gains_to_default(self):
-        if self.pitch_edit_checkbox.isChecked() and self.serial_commuincation_status:            
-            self.comms.set_depth_pid(
-                self.p_pitch_gain_default, 
-                self.i_pitch_gain_default, 
-                self.d_pitch_gain_default)
-            
-            self.p_pitch_gain.setText(self.p_pitch_gain_default)
-            self.i_pitch_gain.setText(self.i_pitch_gain_default)
-            self.d_pitch_gain.setText(self.d_pitch_gain_default)
-    
+            '''
+           
     def closeEvent(self, event):
         print( "Exiting application...")
         
