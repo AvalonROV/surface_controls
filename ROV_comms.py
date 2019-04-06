@@ -66,6 +66,7 @@ class Serial:
     def set_thrsuters(self, power):
         payload = 'SA' + power + '!'
         self.ser.write(payload.encode('ascii'))
+        return payload
     
     def set_camera(self, channel_1, channel_2):
         payload = 'SH' + channel_1 + channel_2 + '\n'
