@@ -80,21 +80,23 @@ class Serial:
         payload = 'SG\n'
         self.ser.write(payload.encode('ascii'))
     
-    def set_depth_pid_state(self, state):
-        payload = 'SD' + str(state) + '\n'
+    def set_pid_controller_state(self, controller, state):
+        if controller == "depth":
+            payload = 'SD' + str(state) + '!'
+        elif controller == "pitch":
+            payload = 'SE' + str(state) + '!'
         self.ser.write(payload.encode('ascii'))
-    
-    def set_depth_pid(self, p, i, d):
-        payload = 'SB' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
+        return payload
+        
+    def set_pid_controller_gains(self, controller, p, i, d):
+        if controller == "depth":
+            payload = 'SB'
+        elif controller == "pitch":
+            payload = 'SC'
+        
+        payload += str(p) + ',' + str(i) + ',' + str(d) + '!'
         self.ser.write(payload.encode('ascii'))
-    
-    def set_pitch_pid_state(self, state):
-        payload = 'SE' + str(state) + '\n'
-        self.ser.write(payload.encode('ascii'))
-    
-    def set_pitch_pid(self, p, i, d):
-        payload = 'SC' + str(p) + ',' + str(i) + ',' + str(d) + '\n'
-        self.ser.write(payload.encode('ascii'))
+        return payload
     
     def trim_depth_sensor(self):
         payload = 'SI\n'
