@@ -200,6 +200,8 @@ class Window(QMainWindow):
         self.i_pitch_gain_textbox.setText(self.config['pitch']['i'])
         self.d_pitch_gain_textbox.setText(self.config['pitch']['d'])
         
+        self.debug_input_textbox.editingFinished.connect(self.send_debug_meesage)
+        
     def display_feed_1(self, image):
         try:
             self.MainDisplay.setPixmap(QPixmap.fromImage(image))
@@ -428,7 +430,11 @@ class Window(QMainWindow):
                 self.config.write(configfile)
         else:
             self.debug_response.append("ERROR: Unable to chnage controller gains, no comms available.")
-            
+    
+    def send_debug_meesage(self):
+        self.comms.testing_function(self.debug_input_textbox.text())
+        self.debug_response.append(">> " + self.debug_input_textbox.text())
+        self.debug_input_textbox.clear()
     '''      
     def reset_controller_gains_to_default(self, controller):
         if self.depth_edit_checkbox.isChecked() and self.serial_commuincation_status:
@@ -457,7 +463,7 @@ class Window(QMainWindow):
         except:
             pass
         
-        if self.serial_commuincation_status == True:
+        if self.serial_commuincation_status:
             self.comms.end_comms()
         pygame.quit ()
         event.accept()
