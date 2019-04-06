@@ -59,6 +59,23 @@ def joystick_available():
         return False 
 
 class Window(QMainWindow):
+    
+    power_factor = 1
+    fwd_factor = 400*0.5
+    side_factor = 400*0.5
+    vertical_factor = 400    
+    thrusters_power = [500]*6
+    thrusters_names = ["fl" , "fr", "br", "bl", "vf", "vb"]
+    '''
+    Thrusters mapping:
+        0 --> Front left
+        1 --> Front right
+        2 --> Back right
+        3 --> Back left
+        4 --> Vertical front
+        5 --> Vertical back
+    '''
+        
     def __init__(self,surface):
         super(Window,self).__init__()
         self.setCentralWidget(ImageWidget(surface))
@@ -103,34 +120,68 @@ class Window(QMainWindow):
         self.update_pitch_controller_btn.clicked.connect(self.set_pitch_gains_to_update)
         self.default_pitch_controller_btn.clicked.connect(self.set_pitch_gains_to_default)
         
-        self.flip_FL_btn.clicked.connect(self.flip_FL_function)
-        self.flip_FR_btn.clicked.connect(self.flip_FR_function)
-        self.flip_BR_btn.clicked.connect(self.flip_BR_function)
-        self.flip_BL_btn.clicked.connect(self.flip_BL_function)
-        self.flip_VF_btn.clicked.connect(self.flip_VF_function)
-        self.flip_VB_btn.clicked.connect(self.flip_VB_function)
+        
+        #Thrusters flip checkboxes change state defintion 
+        self.FL_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_chkbox, 0))
+        self.FR_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FR_flip_chkbox, 1))
+        self.BR_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BR_flip_chkbox, 2))
+        self.BL_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BL_flip_chkbox, 3))
+        self.VF_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VF_flip_chkbox, 4))
+        self.VB_flip_chkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VB_flip_chkbox, 5))
+        
+        #Thrusters ordering line-edit initialization 
+        self.FL_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.FL_order, 0))
+        self.FR_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.FR_order, 1))
+        self.BR_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.BR_order, 2))
+        self.BL_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.BL_order, 3))
+        self.VF_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.VF_order, 4))
+        self.VB_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.VB_order, 5))
+       
+        #Thrusters manual power input
+        self.FL_manual_power.editingFinished.connect(self.manual_thrusters_control)
+        self.FR_manual_power.editingFinished.connect(self.manual_thrusters_control)
+        self.BR_manual_power.editingFinished.connect(self.manual_thrusters_control)
+        self.BL_manual_power.editingFinished.connect(self.manual_thrusters_control)
+        self.VF_manual_power.editingFinished.connect(self.manual_thrusters_control)
+        self.VB_manual_power.editingFinished.connect(self.manual_thrusters_control)
                 
     def load_variables(self):
+        #Loading thrusters flip from config file
         self.config = configparser.ConfigParser()
         self.config.read('rov_config.ini')
         
-        self.FL_flip = int(self.config['Directions']['FL'])
-        self.FR_flip = int(self.config['Directions']['FR'])
-        self.BR_flip = int(self.config['Directions']['BR'])
-        self.BL_flip = int(self.config['Directions']['BL'])
-        self.VF_flip = int(self.config['Directions']['VF'])
-        self.VB_flip = int(self.config['Directions']['VB'])
+        #loading directions from the config file
+        self.thrusters_flip = []
+        self.thrusters_flip.append(int(self.config['Directions']['fl'])) 
+        self.thrusters_flip.append(int(self.config['Directions']['fr'])) 
+        self.thrusters_flip.append(int(self.config['Directions']['br']))
+        self.thrusters_flip.append(int(self.config['Directions']['bl'])) 
+        self.thrusters_flip.append(int(self.config['Directions']['vf'])) 
+        self.thrusters_flip.append(int(self.config['Directions']['vb']))
         
-        self.power_factor = 1
-        self.fwd_factor = 400*0.5
-        self.side_factor = 400*0.5
-        self.vertical_factor = 400
-        self.thrustre_FL = 1500
-        self.thrustre_BL = 1500
-        self.thrustre_FR = 1500
-        self.thrustre_BR = 1500            
-        self.thrustre_VF = 1500
-        self.thrustre_VB = 1500
+        #Intiallizing thruters flipping checkboxes
+        self.FL_flip_chkbox.setChecked(False if self.thrusters_flip[0] == 1 else True)
+        self.FR_flip_chkbox.setChecked(False if self.thrusters_flip[1] == 1 else True)
+        self.BR_flip_chkbox.setChecked(False if self.thrusters_flip[2] == 1 else True)
+        self.BL_flip_chkbox.setChecked(False if self.thrusters_flip[3] == 1 else True)
+        self.VF_flip_chkbox.setChecked(False if self.thrusters_flip[4] == 1 else True)
+        self.VB_flip_chkbox.setChecked(False if self.thrusters_flip[5] == 1 else True)
+        
+        #Initiallizing thrusters order
+        self.thrusters_order = []
+        self.thrusters_order.append(int(self.config['Order']['fl'])) 
+        self.thrusters_order.append(int(self.config['Order']['fr'])) 
+        self.thrusters_order.append(int(self.config['Order']['br']))
+        self.thrusters_order.append(int(self.config['Order']['bl'])) 
+        self.thrusters_order.append(int(self.config['Order']['vf'])) 
+        self.thrusters_order.append(int(self.config['Order']['vb']))
+        
+        self.FL_order.setText(str(self.thrusters_order[0]))
+        self.FR_order.setText(str(self.thrusters_order[1]))
+        self.BR_order.setText(str(self.thrusters_order[2]))
+        self.BL_order.setText(str(self.thrusters_order[3]))
+        self.VF_order.setText(str(self.thrusters_order[4]))
+        self.VB_order.setText(str(self.thrusters_order[5]))
     
     def display_feed_1(self, image):
         try:
@@ -168,57 +219,60 @@ class Window(QMainWindow):
            print("Connected to: " + str(self.COMport_list.currentText()))
            
     def update_ui(self):
-        ''''
+        
         if self.serial_commuincation_status:
+            '''
             data = self.comms.get_telemetry()
+        
             self.depth_label.setText(data["depth"])
             self.temp_label.setText(data["temprature"])
             self.ph_label.setText(data["ph"])
             self.pitch_angle_label.setText(data["pitch_angle"])
             self.roll_angle_label.setText(data["roll_angle"])
-            
+           ''' 
             self.serial_state_label.setText("Connected")
-            self.serial_state_label.setStyleSheet('background-color: green;
+            self.serial_state_label.setStyleSheet('''background-color: green;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);')
+                                                  border-color:rgba(0,140,255,255);''')
         else:
             self.serial_state_label.setText("Not connected")
-            self.serial_state_label.setStyleSheet('background-color: red;
+            self.serial_state_label.setStyleSheet('''background-color: red;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);')
+                                                  border-color:rgba(0,140,255,255);''')
         
         if self.joystick_connection_state:
             self.joystick_state_label.setText("Connected")
-            self.joystick_state_label.setStyleSheet('background-color: green;
+            self.joystick_state_label.setStyleSheet('''background-color: green;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);')
+                                                  border-color:rgba(0,140,255,255);''')
         else:
             self.joystick_state_label.setText("Not connected")
-            self.joystick_state_label.setStyleSheet('background-color: red;
+            self.joystick_state_label.setStyleSheet('''background-color: red;
                                                   color: rgba(0,190,255,255);
                                                   border-style: solid;
                                                   border-radius: 3px;
                                                   border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);')
-         '''   
-        pygame.event.pump()
-        self.send_controls()
+                                                  border-color:rgba(0,140,255,255);''')
         
-        self.FL_thruster_label.setText(str(self.thrustre_FL))
-        self.FR_thruster_label.setText(str(self.thrustre_FR))
-        self.BR_thruster_label.setText(str(self.thrustre_BR))
-        self.BL_thruster_label.setText(str(self.thrustre_BL))
-        self.VF_thruster_label.setText(str(self.thrustre_VF))
-        self.VB_thruster_label.setText(str(self.thrustre_VB))
+        if not self.manual_mode_checkbox.isChecked():
+            pygame.event.pump()
+            self.send_controls()
+                
+        self.FL_thruster_label.setText(str(self.thrusters_power[0]))
+        self.FR_thruster_label.setText(str(self.thrusters_power[1]))
+        self.BR_thruster_label.setText(str(self.thrusters_power[2]))
+        self.BL_thruster_label.setText(str(self.thrusters_power[3]))
+        self.VF_thruster_label.setText(str(self.thrusters_power[4]))
+        self.VB_thruster_label.setText(str(self.thrusters_power[5]))
     
     def send_controls(self):
         try:
@@ -228,69 +282,81 @@ class Window(QMainWindow):
             self.RTY_Axis = self.my_joystick.get_axis(3) * -1
             self.vertical_power = self.my_joystick.get_axis(2)
             
-            self.thrustre_FL = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.FL_flip)
-            self.thrustre_BL = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.BL_flip)
+            self.thrusters_power[0] = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[0]) #Front right
+            self.thrusters_power[1] = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[1]) #Front left
+            self.thrusters_power[2] = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[2]) #Back Left
+            self.thrusters_power[3] = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[3]) #Back right
+            self.thrusters_power[4] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[4]) #Vertical front
+            self.thrusters_power[5] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[5]) #Vertical back
             
-            self.thrustre_FR = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.FR_flip)
-            self.thrustre_BR = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.BR_flip)
-            
-            self.thrustre_VF = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.VF_flip)
-            self.thrustre_VB = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.VB_flip)
-            
+            string  = str(self.thrusters_power[self.thrusters_order.index(1)])
+            string += str(self.thrusters_power[self.thrusters_order.index(2)])
+            string += str(self.thrusters_power[self.thrusters_order.index(3)])
+            string += str(self.thrusters_power[self.thrusters_order.index(4)])
+            string += str(self.thrusters_power[self.thrusters_order.index(5)])
+            string += str(self.thrusters_power[self.thrusters_order.index(6)])
+
+            '''
             string = str(self.thrustre_BL)
             string +=str(self.thrustre_VF)
             string += str(self.thrustre_FL)
             string += str(self.thrustre_VB)
             string += str(self.thrustre_FR)
             string += str(self.thrustre_BR)
+            '''
+    
+            state = self.comms.set_thrsuters(string)
+            self.debug_response.append(">> " + state)
             
-            self.debug_response.setText(string)
-            self.comms.set_thrsuters(string)
-        except:
-            print("Joystick not connected")
+        except Exception  as e:
+            self.debug_response.append("ERROR: " + str(e))
+            #print("Joystick not connected LOL")
             self.joystick_connection_state=False
-            
-    def flip_FL_function(self):
-        if self.edit_thruster_checkbox.isChecked():
-            self.FL_flip *= -1
-            self.config['Directions']['FL'] = str(self.FL_flip)
-            with open('rov_config.ini', 'w') as configfile:
-                self.config.write(configfile)
+    
+    def manual_thrusters_control(self):
+        self.thrusters_power[0] = int(self.FL_manual_power.text()) #Front right
+        self.thrusters_power[1] = int(self.FR_manual_power.text()) #Front left
+        self.thrusters_power[2] = int(self.BR_manual_power.text()) #Back Left
+        self.thrusters_power[3] = int(self.BL_manual_power.text()) #Back right
+        self.thrusters_power[4] = int(self.VF_manual_power.text()) #Vertical front
+        self.thrusters_power[5] = int(self.VB_manual_power.text()) #Vertical back
         
-    def flip_FR_function(self):
-        if self.edit_thruster_checkbox.isChecked():
-            self.FR_flip *= -1
-            self.config['Directions']['FR'] = str(self.FR_flip)
-            with open('rov_config.ini', 'w') as configfile:
-                self.config.write(configfile)
-            
-    def flip_BR_function(self):
-        if self.edit_thruster_checkbox.isChecked():
-            self.BR_flip *= -1
-            self.config['Directions']['BR'] = str(self.BR_flip)
-            with open('rov_config.ini', 'w') as configfile:
-                self.config.write(configfile)
+        string  = str(self.thrusters_power[self.thrusters_order.index(1)])
+        string += str(self.thrusters_power[self.thrusters_order.index(2)])
+        string += str(self.thrusters_power[self.thrusters_order.index(3)])
+        string += str(self.thrusters_power[self.thrusters_order.index(4)])
+        string += str(self.thrusters_power[self.thrusters_order.index(5)])
+        string += str(self.thrusters_power[self.thrusters_order.index(6)])
+
+        state = self.comms.set_thrsuters(string)
+        #self.debug_response.append("Debug: power" + str(self.thrusters_power))
+        #self.debug_response.append("Debug: order" + str(self.thrusters_order))
+        self.debug_response.append(">> " + state)
+    
+    def edit_thrusters_order(self, thruster, thruster_number):            
+        index = self.thrusters_order.index(int(thruster.text()))
         
-    def flip_BL_function(self):
-        if self.edit_thruster_checkbox.isChecked():
-            self.BL_flip *= -1
-            self.config['Directions']['BL'] = str(self.BL_flip)
-            with open('rov_config.ini', 'w') as configfile:
-                self.config.write(configfile)
+        self.thrusters_order[index] = self.thrusters_order[thruster_number]
+        self.thrusters_order[thruster_number] = int(thruster.text())
         
-    def flip_VF_function(self):
-        if self.edit_thruster_checkbox.isChecked():
-            self.VF_flip *= -1
-            self.config['Directions']['VF'] = str(self.VF_flip)
-            with open('rov_config.ini', 'w') as configfile:
-                self.config.write(configfile)
+        self.FL_order.setText(str(self.thrusters_order[0]))
+        self.FR_order.setText(str(self.thrusters_order[1]))
+        self.BR_order.setText(str(self.thrusters_order[2]))
+        self.BL_order.setText(str(self.thrusters_order[3]))
+        self.VF_order.setText(str(self.thrusters_order[4]))
+        self.VB_order.setText(str(self.thrusters_order[5]))
         
-    def flip_VB_function(self):
-        if self.edit_thruster_checkbox.isChecked():
-            self.VB_flip *= -1
-            self.config['Directions']['VB'] = str(self.VB_flip)
-            with open('rov_config.ini', 'w') as configfile:
-                self.config.write(configfile)
+        self.config['Order'][self.thrusters_names[index]] = str(self.thrusters_order[index])
+        self.config['Order'][self.thrusters_names[thruster_number]] = str( self.thrusters_order[thruster_number])
+        with open('rov_config.ini', 'w') as configfile:
+            self.config.write(configfile)
+    
+    def flip_thruster_direction(self, thruster, index):
+        self.thrusters_flip[index] *= -1
+        self.config['Directions'][self.thrusters_names[index]] = str(self.thrusters_flip[index])
+        with open('rov_config.ini', 'w') as configfile:
+            self.config.write(configfile)
+    
         
     def enable_depth_controller(self):
         if self.serial_commuincation_status:
