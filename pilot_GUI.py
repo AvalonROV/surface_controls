@@ -113,12 +113,12 @@ class Window(QMainWindow):
         self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
         
         #Thrusters flip checkboxes change state defintion 
-        self.FL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_chkbox, 0))
-        self.FR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FR_flip_chkbox, 1))
-        self.BR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BR_flip_chkbox, 2))
-        self.BL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BL_flip_chkbox, 3))
-        self.VF_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VF_flip_chkbox, 4))
-        self.VB_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VB_flip_chkbox, 5))
+        self.FL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_checkbox, 0))
+        self.FR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FR_flip_checkbox, 1))
+        self.BR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BR_flip_checkbox, 2))
+        self.BL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.BL_flip_checkbox, 3))
+        self.VF_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VF_flip_checkbox, 4))
+        self.VB_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.VB_flip_checkbox, 5))
         
         #Thrusters ordering line-edit initialization 
         self.FL_order.editingFinished.connect(lambda:self.edit_thrusters_order(self.FL_order, 0))
@@ -266,6 +266,11 @@ class Window(QMainWindow):
                                                   border-color:rgba(0,140,255,255);''')
         
         if self.joystick_connection_state:
+            pygame.event.pump()
+            pygame.event.get()
+            self.debug_response.append("True " + str(pygame.joystick.get_count()))
+            if pygame.joystick.get_count() == 0:
+                self.joystick_connection_state = False
             self.joystick_state_label.setText("Connected")
             self.joystick_state_label.setStyleSheet('''background-color: green;
                                                   color: rgba(0,190,255,255);
@@ -274,13 +279,21 @@ class Window(QMainWindow):
                                                   border-width: 0.5px;
                                                   border-color:rgba(0,140,255,255);''')
         else:
-            self.joystick_state_label.setText("Not connected")
-            self.joystick_state_label.setStyleSheet('''background-color: red;
-                                                  color: rgba(0,190,255,255);
-                                                  border-style: solid;
-                                                  border-radius: 3px;
-                                                  border-width: 0.5px;
-                                                  border-color:rgba(0,140,255,255);''')
+            pygame.event.pump()
+            pygame.event.get()
+            self.debug_response.append("False " + str(pygame.joystick.get_count()))
+            try:
+                self.my_joystick = pygame.joystick.Joystick(0)
+                self.my_joystick.init()
+                self.joystick_connection_state = True
+            except:
+                self.joystick_state_label.setText("Not connected")
+                self.joystick_state_label.setStyleSheet('''background-color: red;
+                                                      color: rgba(0,190,255,255);
+                                                      border-style: solid;
+                                                      border-radius: 3px;
+                                                      border-width: 0.5px;
+                                                      border-color:rgba(0,140,255,255);''')
         
         if not self.manual_mode_checkbox.isChecked():
             pygame.event.pump()
@@ -301,10 +314,12 @@ class Window(QMainWindow):
             self.RTY_Axis = self.my_joystick.get_axis(3) * -1
             self.vertical_power = self.my_joystick.get_axis(2)
             
-            self.thrusters_power[0] = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[0]) #Front right
-            self.thrusters_power[1] = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[1]) #Front left
-            self.thrusters_power[2] = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[2]) #Back Left
-            self.thrusters_power[3] = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[3]) #Back right
+            #self.debug_response.append("DEBUG " + str(self.LTX_Axis) + str(self.LTY_Axis) + str(self.RTX_Axis) + str(self.RTY_Axis))
+            
+            self.thrusters_power[0] = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[0]) #Front left
+            self.thrusters_power[1] = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[1]) #Front right
+            self.thrusters_power[2] = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[2]) #Back right
+            self.thrusters_power[3] = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[3]) #Back left
             self.thrusters_power[4] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[4]) #Vertical front
             self.thrusters_power[5] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[5]) #Vertical back
             
