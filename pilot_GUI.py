@@ -27,10 +27,11 @@ class get_video_feed(QThread):
             if ret:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 #frame = cv2.flip(frame, 1)
-                image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                self.return_image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
                 
-                self.signal.emit(image)
-            time.sleep(0.04)
+                #self.signal.emit(image)
+                #self.return_image = image
+            #time.sleep(0.04)
     
     def end_feed(self):
         self.running = False
@@ -63,7 +64,26 @@ class Window(QMainWindow):
     power_factor = 1
     fwd_factor = 400*0.5
     side_factor = 400*0.5
-    vertical_factor = 400    
+    vertical_factor = 400
+    
+    '''
+    Buttons mapping
+    A --> 0
+    B --> 1
+    X --> 2
+    Y --> 3
+    L1 --> 4
+    R1 -- --> 5
+    Options --> 7
+    windows --> 6
+    '''
+    button_info = {
+            "A" : {"num" : 0, "prev_state" : False},
+            "B" : {"num" : 1, "prev_state" : False},
+            "X" : {"num" : 2, "prev_state" : False},
+            "Y" : {"num" : 3, "prev_state" : False}
+            }
+    
     thrusters_power = [500]*6
     thrusters_names = ["fl" , "fr", "br", "bl", "vf", "vb"]
     '''
@@ -88,12 +108,12 @@ class Window(QMainWindow):
         self.ls_COM_ports_thread.start()
         self.ports_list = []
         
-        self.feed_1 = get_video_feed(0)
-        self.feed_1.signal.connect(self.display_feed_1)
-        #self.feed_1.start()
+        self.feed_1 = get_video_feed("rtsp://192.168.0.103/user=admin&password=&channel=3&stream=0.sdp?")
+        #self.feed_1.signal.connect(self.display_feed_1)
+        self.feed_1.start()
         
-        self.feed_2 = get_video_feed(1)
-        self.feed_2.signal.connect(self.display_feed_2)
+        #self.feed_2 = get_video_feed(1)
+        #self.feed_2.signal.connect(self.display_feed_2)
         #self.feed_2.start()
         
         try:
@@ -108,9 +128,15 @@ class Window(QMainWindow):
         
         self.refresh_timer = QTimer(self)
         self.refresh_timer.timeout.connect(self.update_ui)
-        self.refresh_timer.start(50)
+        self.refresh_timer.start(33) #50
         
-        self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
+        #self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
+        
+        # Power factor textbox initialization
+        self.power_factor_textbox.editingFinished.connect(self.change_power_factor)
+        self.power_factor_textbox.setText(str(self.power_factor))
+        
+
         
         #Thrusters flip checkboxes change state defintion 
         self.FL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_checkbox, 0))
@@ -236,9 +262,18 @@ class Window(QMainWindow):
            self.comms.update_port(str(self.COMport_list.currentText()))
            self.serial_commuincation_status = True
            print("Connected to: " + str(self.COMport_list.currentText()))
-           
-    def update_ui(self):
+    
+    def change_power_factor(self):
+        self.power_factor = float(self.power_factor_textbox.text())
+        self.debug_response.append("## Power factor changed to: " + str(self.power_factor))
         
+    def update_ui(self):
+        try:
+            self.display_feed_1(self.feed_1.return_image)
+        except:
+            pass
+            #self.debug_response.append("ERROR: Camera error, check line 251.")
+            
         if self.serial_commuincation_status:
             '''
             data = self.comms.get_telemetry()
@@ -268,7 +303,7 @@ class Window(QMainWindow):
         if self.joystick_connection_state:
             pygame.event.pump()
             pygame.event.get()
-            self.debug_response.append("True " + str(pygame.joystick.get_count()))
+            #self.debug_response.append("True " + str(pygame.joystick.get_count()))
             if pygame.joystick.get_count() == 0:
                 self.joystick_connection_state = False
             self.joystick_state_label.setText("Connected")
@@ -281,7 +316,7 @@ class Window(QMainWindow):
         else:
             pygame.event.pump()
             pygame.event.get()
-            self.debug_response.append("False " + str(pygame.joystick.get_count()))
+            #self.debug_response.append("False " + str(pygame.joystick.get_count()))
             try:
                 self.my_joystick = pygame.joystick.Joystick(0)
                 self.my_joystick.init()
@@ -316,13 +351,26 @@ class Window(QMainWindow):
             
             #self.debug_response.append("DEBUG " + str(self.LTX_Axis) + str(self.LTY_Axis) + str(self.RTX_Axis) + str(self.RTY_Axis))
             
-            self.thrusters_power[0] = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[0]) #Front left
-            self.thrusters_power[1] = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[1]) #Front right
-            self.thrusters_power[2] = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[2]) #Back right
-            self.thrusters_power[3] = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[3]) #Back left
-            self.thrusters_power[4] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[4]) #Vertical front
-            self.thrusters_power[5] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[5]) #Vertical back
+            if  not self.rov_direction_flip_checkbox.checkState(): # Normal driving mode
+                self.thrusters_power[0] = int(500 + (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[0]) #Front left
+                self.thrusters_power[1] = int(500 + (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[1]) #Front right
+                self.thrusters_power[2] = int(500 + (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[2]) #Back right
+                self.thrusters_power[3] = int(500 + (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[3]) #Back left
             
+            else: # Flipped driving mode
+                self.thrusters_power[2] = int(500 - (self.fwd_factor * self.LTY_Axis + self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[0]) #Front left
+                self.thrusters_power[3] = int(500 - (self.fwd_factor * self.RTY_Axis - self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[1]) #Front right
+                self.thrusters_power[0] = int(500 - (self.fwd_factor * self.RTY_Axis + self.side_factor * self.RTX_Axis) * self.power_factor * self.thrusters_flip[2]) #Back right
+                self.thrusters_power[1] = int(500 - (self.fwd_factor * self.LTY_Axis - self.side_factor * self.LTX_Axis) * self.power_factor * self.thrusters_flip[3]) #Back left
+            
+            if self.my_joystick.get_button(5): # If R1 is pressed
+                self.thrusters_power[4] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[4]) #Vertical front
+                self.thrusters_power[5] = int(500 - self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[5]) #Vertical back
+                
+            else:
+                self.thrusters_power[4] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[4]) #Vertical front
+                self.thrusters_power[5] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[5]) #Vertical back
+                
             string  = str(self.thrusters_power[self.thrusters_order.index(1)])
             string += str(self.thrusters_power[self.thrusters_order.index(2)])
             string += str(self.thrusters_power[self.thrusters_order.index(3)])
@@ -330,22 +378,69 @@ class Window(QMainWindow):
             string += str(self.thrusters_power[self.thrusters_order.index(5)])
             string += str(self.thrusters_power[self.thrusters_order.index(6)])
 
-            '''
-            string = str(self.thrustre_BL)
-            string +=str(self.thrustre_VF)
-            string += str(self.thrustre_FL)
-            string += str(self.thrustre_VB)
-            string += str(self.thrustre_FR)
-            string += str(self.thrustre_BR)
-            '''
-    
             state = self.comms.set_thrsuters(string)
             self.debug_response.append(">> " + state)
             
+            if self.button_info["A"]["prev_state"] != self.my_joystick.get_button(self.button_info["A"]["num"]):
+               
+                self.button_info["A"]["prev_state"] = self.my_joystick.get_button(self.button_info["A"]["num"]) 
+                
+                state = self.comms.set_gripper(self.button_info["A"]["prev_state"])
+                
+                if self.button_info["A"]["prev_state"]: 
+                    self.gripper_button.setStyleSheet('''background-color: green;''')
+                else:
+                    self.gripper_button.setStyleSheet('''background-color: red;''')
+                
+                self.debug_response.append(">> " + state)
+            
+            if self.button_info["B"]["prev_state"] != self.my_joystick.get_button(self.button_info["B"]["num"]):
+               
+                self.button_info["B"]["prev_state"] = self.my_joystick.get_button(self.button_info["B"]["num"]) 
+                
+                state = self.comms.testing_function("SG" + str(self.button_info["B"]["prev_state"]) + "aa")
+        
+                if self.button_info["B"]["prev_state"]: 
+                    self.lift_bag_button.setStyleSheet('''background-color: green;''')
+                else:
+                    self.lift_bag_button.setStyleSheet('''background-color: red;''')
+                
+                self.debug_response.append(">> " + state)        
+            
+# =============================================================================
+#             if self.button_info["x"]["prev_state"] != self.my_joystick.get_button(self.button_info["x"]["num"]):
+#                
+#                 self.button_info["x"]["prev_state"] = self.my_joystick.get_button(self.button_info["x"]["num"]) 
+#                 
+#                 state = self.comms.set_gripper(self.button_info["x"]["prev_state"])
+#                 
+#                 if self.button_info["x"]["prev_state"]: 
+#                     self.lift_bag_button.setStyleSheet('''background-color: green;''')
+#                 else:
+#                     self.lift_bag_button.setStyleSheet('''background-color: red;''')
+#                 
+#                 self.debug_response.append(">> " + state)
+# =============================================================================
+            
+# =============================================================================
+#             if self.button_info["y"]["prev_state"] != self.my_joystick.get_button(self.button_info["y"]["num"]):
+#                
+#                 self.button_info["y"]["prev_state"] = self.my_joystick.get_button(self.button_info["y"]["num"]) 
+#                 
+#                 state = self.comms.set_gripper(self.button_info["y"]["prev_state"])
+#                 
+#                 if self.button_info["y"]["prev_state"]: 
+#                     self.lift_bag_button.setStyleSheet('''background-color: green;''')
+#                 else:
+#                     self.lift_bag_button.setStyleSheet('''background-color: red;''')
+#                 
+#                 self.debug_response.append(">> " + state)
+# =============================================================================
+            
         except Exception  as e:
-            self.debug_response.append("ERROR: " + str(e))
+            self.debug_response.append("ERROR: " + str(e) + "Line 428")
             #print("Joystick not connected LOL")
-            self.joystick_connection_state=False
+            #self.joystick_connection_state=False
     
     def manual_thrusters_control(self):
         self.thrusters_power[0] = int(self.FL_manual_power.text()) #Front right

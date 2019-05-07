@@ -271,50 +271,25 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="Right_6">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>1060</x>
-        <y>30</y>
-        <width>201</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: 
-                                 rgba(0,255,255,100);
-                                 color: rgba(0,190,255,255);
-                                 border-style: solid;
-                                 border-radius: 3px;
-                                 border-width: 0.5px;
-                                 border-color: 
-                                 rgba(0,140,255,255);</string>
-      </property>
-      <property name="text">
-       <string>Start Line Tracking</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Right_7">
-      <property name="geometry">
-       <rect>
-        <x>1070</x>
-        <y>220</y>
-        <width>201</width>
+        <x>1100</x>
+        <y>130</y>
+        <width>156</width>
         <height>121</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: 
+      <layout class="QVBoxLayout" name="verticalLayout_29">
+       <item>
+        <widget class="QPushButton" name="Right_6">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: 
                                  rgba(0,255,255,100);
                                  color: rgba(0,190,255,255);
                                  border-style: solid;
@@ -322,10 +297,35 @@
                                  border-width: 0.5px;
                                  border-color: 
                                  rgba(0,140,255,255);</string>
-      </property>
-      <property name="text">
-       <string>Start Shape Detection</string>
-      </property>
+         </property>
+         <property name="text">
+          <string>Start Line Tracking</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Right_7">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: 
+                                 rgba(0,255,255,100);
+                                 color: rgba(0,190,255,255);
+                                 border-style: solid;
+                                 border-radius: 3px;
+                                 border-width: 0.5px;
+                                 border-color: 
+                                 rgba(0,140,255,255);</string>
+         </property>
+         <property name="text">
+          <string>Start Shape Detection</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="Settings">
@@ -564,7 +564,7 @@ QPushButton:hover{
         <x>380</x>
         <y>550</y>
         <width>131</width>
-        <height>191</height>
+        <height>199</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1369,7 +1369,7 @@ QPushButton:hover{
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="debug_input_textbox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1392,244 +1392,13 @@ QPushButton:hover{
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>360</y>
-        <width>211</width>
-        <height>151</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_157">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_73">
-         <item>
-          <spacer name="horizontalSpacer_10">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="VF_thruster_label">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-           </property>
-           <property name="text">
-            <string>1500</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_17">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_130">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_59">
-           <item>
-            <widget class="QLabel" name="FL_thruster_label">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-             </property>
-             <property name="text">
-              <string>1500</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="FR_thruster_label">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-             </property>
-             <property name="text">
-              <string>1500</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_60">
-           <item>
-            <widget class="QLabel" name="BL_thruster_label">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-             </property>
-             <property name="text">
-              <string>1500</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="BR_thruster_label">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-             </property>
-             <property name="text">
-              <string>1500</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_74">
-         <item>
-          <spacer name="horizontalSpacer_8">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="VB_thruster_label">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-           </property>
-           <property name="text">
-            <string>1500</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_9">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>1550</x>
-      <y>310</y>
+      <x>1310</x>
+      <y>30</y>
       <width>215</width>
       <height>166</height>
      </rect>
@@ -1843,8 +1612,8 @@ QPushButton:hover{
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>1600</x>
-      <y>490</y>
+      <x>1760</x>
+      <y>270</y>
       <width>105</width>
       <height>75</height>
      </rect>
@@ -1922,13 +1691,382 @@ QPushButton:hover{
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>1470</x>
+      <y>300</y>
+      <width>211</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_157">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_73">
+       <item>
+        <spacer name="horizontalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="VF_thruster_label">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+         </property>
+         <property name="text">
+          <string>1500</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_17">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_130">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_59">
+         <item>
+          <widget class="QLabel" name="FL_thruster_label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>1500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="FR_thruster_label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>1500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_60">
+         <item>
+          <widget class="QLabel" name="BL_thruster_label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>1500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="BR_thruster_label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>1500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_74">
+       <item>
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="VB_thruster_label">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+         </property>
+         <property name="text">
+          <string>1500</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>1530</x>
-      <y>160</y>
-      <width>242</width>
-      <height>109</height>
+      <x>1450</x>
+      <y>510</y>
+      <width>256</width>
+      <height>77</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_30">
+     <item>
+      <widget class="QLabel" name="label_45">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255)</string>
+       </property>
+       <property name="text">
+        <string>Manipulators</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QPushButton" name="gripper_button">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+         </property>
+         <property name="text">
+          <string>Gripper</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cannon_gripper_button">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+         </property>
+         <property name="text">
+          <string>Cannon Gripper</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="dispenser_button">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+         </property>
+         <property name="text">
+          <string>Dispenser</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="lift_bag_button">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Lift Bag</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>1610</x>
+      <y>30</y>
+      <width>254</width>
+      <height>153</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1954,9 +2092,9 @@ QPushButton:hover{
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_31">
          <item>
           <widget class="QLabel" name="label_6">
            <property name="font">
@@ -1973,6 +2111,70 @@ QPushButton:hover{
           </widget>
          </item>
          <item>
+          <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>Serial Comms</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>COM port</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>Power Factor</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>Flip ROV Direction</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
           <widget class="QLabel" name="joystick_state_label">
            <property name="font">
             <font>
@@ -1987,25 +2189,6 @@ QPushButton:hover{
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-           </property>
-           <property name="text">
-            <string>Serial Comms</string>
            </property>
           </widget>
          </item>
@@ -2036,25 +2219,6 @@ QPushButton:hover{
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
-           </property>
-           <property name="text">
-            <string>Serial COM port</string>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QComboBox" name="COMport_list">
            <property name="font">
@@ -2067,16 +2231,45 @@ QPushButton:hover{
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QLineEdit" name="power_factor_textbox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="rov_direction_flip_checkbox">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
      </item>
     </layout>
    </widget>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <resources/>
