@@ -130,7 +130,7 @@ class Window(QMainWindow):
         self.refresh_timer.timeout.connect(self.update_ui)
         self.refresh_timer.start(33) #50
         
-        #self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
+        self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
         
         # Power factor textbox initialization
         self.power_factor_textbox.editingFinished.connect(self.change_power_factor)
