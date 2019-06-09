@@ -37,7 +37,8 @@ class Serial(QThread):
             "humidity" : "N/A",
             "depth" : "N/A",
             "roll" : "N/A",
-            "pitch" : "N/A"
+            "pitch" : "N/A",
+            "induction" : "N/A"
             }
     
     def __init__(self, baud_rate = 115200, parent=None):
@@ -81,6 +82,9 @@ class Serial(QThread):
                     
                     elif data[1] == "F": # pitch angle
                         self.telemetry["humidity"] = str(data[2:])
+                        
+                    elif data[1] == "G": # pitch angle
+                        self.telemetry["induction"] = str(data[2:])
                     
                     else:
                          self.signal.emit(">> Error: undefined message payload.")
