@@ -141,6 +141,33 @@ class LineFollow(QThread):
                 print(vetical_motion, horizontal_motion)
                 #cv2.imshow("Main_frame", main_frame)
                 
+                #----Crack length measurment----------------------------------#
+                hsv = cv2.cvtColor(main_frame, cv2.COLOR_BGR2HSV) 
+                lower_red = np.array([110,50,50]) 
+                upper_red = np.array([130,255,255]) 
+                  
+                # Here we are defining range of bluecolor in HSV 
+                # This creates a mask of blue coloured  
+                # objects found in the frame. 
+                mask = cv2.inRange(hsv, lower_red, upper_red) 
+                
+                contours, hierarchy = cv2.findContours(mask, 1 , cv2.CHAIN_APPROX_NONE)
+                
+                if len(contours) > 0:
+                    cv2.drawContours(cropped_frame[x], contours, -1, (0, 100, 0), 2)
+                    
+                    c = max(contours, key=cv2.contourArea)
+                    x,y,w,h = cv2.boundingRect(c)
+                    cv2.rectangle(main_frame,(x,y),(x+w,y+h),(0,255,0),2)
+                    
+                    if w > h:
+                        crack_length = (w*1.8) / h
+                    else:
+                        crack_length = (h*1.8) / w
+                    
+                    font = cv2.FONT_HERSHEY_SIMPLEX
+                    cv2.putText(main_frame,"Crack length = " + str(crack_length) + "cm",(72,45), font, 1,(0,0,255),2,cv2.LINE_AA)
+                
                 frame = cv2.cvtColor(main_frame, cv2.COLOR_BGR2RGB)
                 self.return_image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
 
@@ -241,8 +268,7 @@ class shapefinder(QThread):
 #                                if (ar >= 0.95 and ar <= 1.05):
 #                                    cv2.putText(frame,'Square',(x,y),cv2.FONT_HERSHEY_SIMPLEX,scale,(255,255,255),2,cv2.LINE_AA)
 #                                else:
-#                                    cv2.putText(frame,'Rectangle',(x,y),cv2.FONT_HERSHEY_SIMPLEX,scale,(255,255,255),2,cv2.LINE_AA)
-#            
+#                                    cv2.putText(frame,'Rectangle',(x,y),cv2.FONT_HERSHEY_SIMPLEX,scale,(255,255,255),2,cv2.LINE_AA)      
 #                                    
 #                            elif(vtc==5):
 #                                cv2.drawContours(frame, [approx], -1, (0,255,0), 3)

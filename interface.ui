@@ -90,6 +90,21 @@
               </widget>
              </item>
              <item>
+              <widget class="QLabel" name="label_48">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>Induction</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLabel" name="label_44">
                <property name="font">
                 <font>
@@ -158,6 +173,24 @@
              </item>
              <item>
               <widget class="QLabel" name="depth_label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+               </property>
+               <property name="text">
+                <string>N/A</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="induction_label">
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
@@ -571,28 +604,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="Left_3">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: 
-                                 rgba(0,255,255,100);
-                                 color: rgba(0,190,255,255);
-                                 border-style: solid;
-                                 border-radius: 3px;
-                                 border-width: 0.5px;
-                                 border-color: 
-                                 rgba(0,140,255,255);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="Right_3">
            <property name="font">
             <font>
@@ -611,6 +622,18 @@
            </property>
            <property name="text">
             <string>Right</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="COMport_list_3">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
            </property>
           </widget>
          </item>
@@ -821,6 +844,18 @@ QPushButton:hover{
            </property>
            <property name="text">
             <string>Sensors</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="COMport_list_2">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
            </property>
           </widget>
          </item>
