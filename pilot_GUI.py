@@ -11,29 +11,29 @@ import sys
 import cv2
 
 class get_video_feed(QThread):
-    
-    signal = pyqtSignal(QImage)
-    
     def __init__(self, channel, parent=None):
         QThread.__init__(self, parent)
-        self.channel = channel
-    
-    def run(self):
-        self.capture = cv2.VideoCapture(self.channel) 
+        self.channel = channel         
         
+    def run(self):
+        self.capture = cv2.VideoCapture(self.channel)
         self.running = True
         while self.running:
-            ret, frame = self.capture.read()
-        
+            ret,  self.return_raw_frame = self.capture.read()
+            
             if ret:
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                #frame = cv2.flip(frame, 1)
-                self.return_image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                RGB_frame = cv2.cvtColor( self.return_raw_frame, cv2.COLOR_BGR2RGB)
+                self.return_image = QImage(RGB_frame, RGB_frame.shape[1], RGB_frame.shape[0], RGB_frame.strides[0], QImage.Format_RGB888)
                 
-                #self.signal.emit(image)
-                #self.return_image = image
-            #time.sleep(0.04)
-    
+            time.sleep(0.05)
+            
+#    def lol(self):
+#        ret, frame = self.capture.read()
+#        
+#        if ret:
+#            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#            self.return_image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+
     def end_feed(self):
         self.running = False
         self.capture.release()
@@ -142,7 +142,6 @@ class Window(QMainWindow):
         self.power_factor_textbox.setText(str(self.power_factor))
         
 
-        
         #Thrusters flip checkboxes change state defintion 
         self.FL_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FL_flip_checkbox, 0))
         self.FR_flip_checkbox.stateChanged.connect(lambda:self.flip_thruster_direction(self.FR_flip_checkbox, 1))
@@ -180,6 +179,9 @@ class Window(QMainWindow):
         self.i_pitch_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("pitch"))
         self.d_pitch_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("pitch"))
         #self.default_pitch_controller_btn.clicked.connect(lambda:self.reset_controller_gains_to_default("pitch")) 
+        
+        self.line_tracking_btn.clicked.connect(self.line_follower)
+        self.shape_detection_btn.clicked.connect(self.shape_detector)
         
     def load_config_file(self):
         #Loading thrusters flip from config file
@@ -314,8 +316,8 @@ class Window(QMainWindow):
                 
             else:
                 self.display_feed_1(self.feed_1.return_image)
-        except:
-            pass
+        except Exception  as e:
+            self.debug_response.append("ERROR: " + str(e) + " update_ui")
             #self.debug_response.append("ERROR: Camera error, check line 251.")
             
         if self.serial_commuincation_status:
