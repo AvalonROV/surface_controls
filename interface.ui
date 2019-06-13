@@ -1279,13 +1279,31 @@ QPushButton:hover{
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>1590</x>
-      <y>820</y>
+      <x>1610</x>
+      <y>910</y>
       <width>169</width>
-      <height>50</height>
+      <height>75</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_29">
+     <item>
+      <widget class="QLabel" name="label_50">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255)</string>
+       </property>
+       <property name="text">
+        <string>Video processing</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="line_tracking_btn">
        <property name="font">
@@ -1398,7 +1416,7 @@ QPushButton:hover{
       <x>930</x>
       <y>40</y>
       <width>431</width>
-      <height>413</height>
+      <height>426</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -2335,6 +2353,400 @@ QPushButton:hover{
         </layout>
        </item>
       </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>760</y>
+      <width>151</width>
+      <height>172</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_36">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_27">
+         <item>
+          <widget class="QLabel" name="label_77">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>L</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_78">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>R1</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_85">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>R2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_87">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="text">
+            <string>R3</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_28">
+         <item>
+          <widget class="QLineEdit" name="p_pitch_gain_textbox_3">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="i_pitch_gain_textbox_2">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="d_pitch_gain_textbox_3">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="d_pitch_gain_textbox_2">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="default_pitch_controller_btn_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Calculate volume</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="d_pitch_gain_textbox_4">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>1790</x>
+      <y>760</y>
+      <width>121</width>
+      <height>102</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_37">
+     <item>
+      <widget class="QLabel" name="label_49">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255)</string>
+       </property>
+       <property name="text">
+        <string>Micro-ROV</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gripper_button_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Feed</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gripper_button_3">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gripper_button_4">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Retract</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>1590</x>
+      <y>760</y>
+      <width>191</width>
+      <height>125</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_41">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
+       <item>
+        <widget class="QLabel" name="label_86">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255);border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+         </property>
+         <property name="text">
+          <string>Volume</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="p_pitch_gain_textbox_5">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+       </property>
+       <property name="text">
+        <string>Iron</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+       </property>
+       <property name="text">
+        <string>Bronze</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="default_pitch_controller_btn_4">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton:!pressed{
+     background-color:  rgba(0,255,255,100);
+color: rgba(0,190,255,255);
+border-style: solid;
+border-radius: 3px;
+border-width: 0.5px;
+border-color: 
+rgba(0,140,255,255);
+ }
+QPushButton:hover{
+     background-color: rgb(0, 92, 255);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Calculate lift force needed</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="d_pitch_gain_textbox_7">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgba(0,190,255,255);border-style: solid;border-radius: 3px;border-width: 0.5px;border-color:rgba(0,140,255,255);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
