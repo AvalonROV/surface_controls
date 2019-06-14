@@ -108,6 +108,7 @@ class Window(QMainWindow):
         
         self.serial_commuincation_status = False
         self.comms = ROV_comms.Serial()
+        self.comms.signal.connect(self.debug_response.append)
         self.comms.start()
         
         self.ls_COM_ports_thread = ROV_comms.ls_COM_ports()
@@ -327,15 +328,14 @@ class Window(QMainWindow):
     
     def update_ui(self):
         if self.serial_commuincation_status:
-            '''
-            data = self.comms.get_telemetry()
-        
-            self.depth_label.setText(data["depth"])
-            self.temp_label.setText(data["temprature"])
-            self.ph_label.setText(data["ph"])
-            self.pitch_angle_label.setText(data["pitch_angle"])
-            self.roll_angle_label.setText(data["roll_angle"])
-           ''' 
+           
+            self.depth_label.setText(self.comms.telemetry["depth"])
+            self.temp_label.setText(self.comms.telemetry["temp"])
+            self.ph_label.setText(self.comms.telemetry["pH"])
+            self.pitch_angle_label.setText(self.comms.telemetry["pitch"])
+            self.roll_angle_label.setText(self.comms.telemetry["roll"])
+#            self.humidity.setText(self.comms.telemetry["humidity"])
+           
             self.serial_state_label.setText("Connected")
             self.serial_state_label.setStyleSheet('''background-color: green;
                                                   color: rgba(0,190,255,255);
@@ -431,7 +431,7 @@ class Window(QMainWindow):
             string += str(self.thrusters_power[self.thrusters_order.index(6)])
 
             state = self.comms.set_thrsuters(string)
-            self.debug_response.append(">> " + state)
+            self.debug_response.append(state)
             
             if self.button_info["A"]["prev_state"] != self.my_joystick.get_button(self.button_info["A"]["num"]):
                

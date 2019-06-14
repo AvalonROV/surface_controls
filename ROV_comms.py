@@ -62,40 +62,37 @@ class Serial(QThread):
 #            print(data)
             try:
                 data = self.ser.readline().strip().decode('ascii')
-                print(data)
-#                if data[0] == "R":
-#                    if data[1] == "A": # Temprature
-#                        self.telemetry["temp"] = str(data[2:])
-#                    
-#                    elif data[1] == "B": # humidity:
-#                        self.telemetry["pH"] = str(data[2:])
-#                    
-#                    elif data[1] == "C": # roll angle
-#                        self.telemetry["depth"] = str(data[2:])
-#                    
-#                    elif data[1] == "D": # pitch angle
-#                        self.telemetry["roll"] = str(data[2:])
-#                        
-#                    elif data[1] == "E": # pitch angle
-#                        self.telemetry["pitch"] = str(data[2:])
-#                    
-#                    elif data[1] == "F": # pitch angle
-#                        self.telemetry["humidity"] = str(data[2:])
-#                    
-#                    else:
-#                         self.signal.emit(">> Error: undefined message payload.")
-#                         
-#                else:
-#                    self.signal.emit(">> Error: missing \"R\" at the start of the message.")
-#             
-#                self.signal.emit(">> " + data)
+#                print(data)
+                if data[0] == "R":
+                    if data[1] == "A": # Temprature
+                        self.telemetry["temp"] = str(data[2:])
+                    
+                    elif data[1] == "B": # humidity:
+                        self.telemetry["pH"] = str(data[2:])
+                    
+                    elif data[1] == "C": # roll angle
+                        self.telemetry["depth"] = str(data[2:])
+                    
+                    elif data[1] == "D": # pitch angle
+                        self.telemetry["roll"] = str(data[2:])
+                        
+                    elif data[1] == "E": # pitch angle
+                        self.telemetry["pitch"] = str(data[2:])
+                    
+                    elif data[1] == "F": # pitch angle
+                        self.telemetry["humidity"] = str(data[2:])
+                    
+                    else:
+                         self.signal.emit(">> Error: undefined message received.")
+                         
+                else:
+                    self.signal.emit(">> Error: missing \"R\" at the start of the message.")
+                    self.signal.emit(">> " + data)
                 
             except Exception as e:
-                print(e)
-#                self.signal.emit("ERROR: Issue with data received:")
-#                self.signal.emit(str(e))
-            
-       
+#                print(e)
+                self.signal.emit("ERROR: Issue with data received:")
+                self.signal.emit(str(e))
             
             time.sleep(0.01)
         
@@ -103,31 +100,11 @@ class Serial(QThread):
         self.running = False
         self.ser.close()
         print("Serial port closed")
-    
-    def get_telemetry(self): # Needs finishing
-        self.ser.write('SK\n'.encode('ascii'))
-        data = self.ser.readline().strip().decode('ascii').split(',')
-        if data[0] == "":
-            return{
-                "depth" : "N/A",
-                "temprature" : "N/A",
-                "ph" : "N/A",
-                "pitch_angle" : "N/A",
-                "roll_angle" : "N/A"
-                }
-        else:
-            return {
-                    "depth" : data[1] + "m",
-                    "temprature" : data[2] + "C",
-                    "ph" : data[3],
-                    "pitch_angle" : data[4] + "deg",
-                    "roll_angle" : data[5] + "deg"
-                    }
         
     def set_thrsuters(self, power):
         payload = 'SA' + power + '!'
         self.ser.write(payload.encode('ascii'))
-        return payload
+        return "<< " + payload
     
     def set_camera(self, channel_1, channel_2):
         payload = 'SH' + channel_1 + channel_2 + '\n'
