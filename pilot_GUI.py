@@ -25,7 +25,7 @@ class get_video_feed(QThread):
                 RGB_frame = cv2.cvtColor( self.return_raw_frame, cv2.COLOR_BGR2RGB)
                 self.return_image = QImage(RGB_frame, RGB_frame.shape[1], RGB_frame.shape[0], RGB_frame.strides[0], QImage.Format_RGB888)
                 
-            time.sleep(0.05)
+#            time.sleep(0.05)
             
 #    def lol(self):
 #        ret, frame = self.capture.read()
@@ -113,8 +113,7 @@ class Window(QMainWindow):
         self.ls_COM_ports_thread.start()
         self.ports_list = []
         
-        self.feed_1 = get_video_feed(0)
-        #self.feed_1.signal.connect(self.display_feed_1)
+        self.feed_1 = get_video_feed("rtsp://192.168.0.103/user=admin&password=&channel=1&stream=0.sdp?")
         self.feed_1.start()
         
         #self.feed_2 = get_video_feed("rtsp://192.168.0.103/user=admin&password=&channel=3&stream=0.sdp?")
@@ -133,7 +132,11 @@ class Window(QMainWindow):
         
         self.refresh_timer = QTimer(self)
         self.refresh_timer.timeout.connect(self.update_ui)
-        self.refresh_timer.start(100) #50
+        self.refresh_timer.start(100) #100
+        
+        self.feed_update_timer = QTimer(self)
+        self.feed_update_timer.timeout.connect(self.update_feed)
+        self.feed_update_timer.start(33) #33
         
         self.COMport_list.currentIndexChanged.connect(self.update_serial_COM_port)
         
@@ -304,7 +307,7 @@ class Window(QMainWindow):
             self.shape_detection_obj.stop()
             self.shape_detection_btn.setText("Start shape detection")
     
-    def update_ui(self):
+    def update_feed(self):
         try:
             if self.line_follow_state:
                 self.line_follow_obj.get_new_frame(self.feed_1.return_raw_frame, True)
@@ -319,7 +322,8 @@ class Window(QMainWindow):
         except Exception  as e:
             self.debug_response.append("ERROR: " + str(e) + " update_ui")
             #self.debug_response.append("ERROR: Camera error, check line 251.")
-            
+    
+    def update_ui(self):
         if self.serial_commuincation_status:
             '''
             data = self.comms.get_telemetry()
@@ -484,7 +488,7 @@ class Window(QMainWindow):
 # =============================================================================
             
         except Exception  as e:
-            self.debug_response.append("ERROR: " + str(e) + "Line 428")
+            self.debug_response.append("ERROR: " + str(e) + " send_controls")
             #print("Joystick not connected LOL")
             #self.joystick_connection_state=False
     
