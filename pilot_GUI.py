@@ -373,7 +373,8 @@ class Window(QMainWindow):
                 self.my_joystick = pygame.joystick.Joystick(0)
                 self.my_joystick.init()
                 self.joystick_connection_state = True
-            except:
+            except Exception  as e:
+                self.debug_response.append("ERROR: " + str(e) + " update_ui")
                 self.joystick_state_label.setText("Not connected")
                 self.joystick_state_label.setStyleSheet('''background-color: red;
                                                       color: rgba(0,190,255,255);
