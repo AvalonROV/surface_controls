@@ -106,26 +106,6 @@ class Serial(QThread):
         self.ser.write(payload.encode('ascii'))
         return "<< " + payload
     
-    def set_camera(self, channel_1, channel_2):
-        payload = 'SH' + channel_1 + channel_2 + '\n'
-        self.ser.write(payload.encode('ascii'))
-    
-    def set_gripper(self):
-        payload = 'SF\n'
-        self.ser.write(payload.encode('ascii'))
-    
-    def set_trap_door(self):
-        payload = 'SG\n'
-        self.ser.write(payload.encode('ascii'))
-    
-    def set_pid_controller_state(self, controller, state):
-        if controller == "depth":
-            payload = 'SD' + str(state) + '!'
-        elif controller == "pitch":
-            payload = 'SE' + str(state) + '!'
-        self.ser.write(payload.encode('ascii'))
-        return payload
-        
     def set_pid_controller_gains(self, controller, p, i, d):
         if controller == "depth":
             payload = 'SB'
@@ -134,15 +114,52 @@ class Serial(QThread):
         
         payload += str(p) + ',' + str(i) + ',' + str(d) + '!'
         self.ser.write(payload.encode('ascii'))
-        return payload
+        return "<< " + payload
+    
+    def set_pid_controller_state(self, controller, state):
+        if controller == "depth":
+            payload = 'SD' + str(state) + '!'
+        elif controller == "pitch":
+            payload = 'SE' + str(state) + '!'
+        
+        self.ser.write(payload.encode('ascii'))
+        return "<< " + payload
+    
+    def set_manipulator(self, manipulator):
+        
+        if manipulator == "gripper": 
+            payload = 'SF!'
+        elif manipulator == "cannon_gripper": 
+            payload = 'SG!'
+        elif manipulator == "lift_bag": 
+            payload = 'SH!'
+        elif manipulator == "dispenser": 
+            payload = 'SI!'
+        elif manipulator == "micro_rov_out": 
+            payload = 'SJ0!'
+        elif manipulator == "micro_rov_in": 
+            payload = 'SJ1!'
+        elif manipulator == "micro_rov_stop": 
+            payload = 'SJ2!'
+        
+        self.ser.write(payload.encode('ascii'))
+        return "<< " + payload
+    
+    def set_camera(self, channel, camera):
+        payload = 'SH' + channel + camera + '!'
+        self.ser.write(payload.encode('ascii'))
+        return "<< " + payload
     
     def trim_depth_sensor(self):
-        payload = 'SI\n'
+        payload = 'SM!'
         self.ser.write(payload.encode('ascii'))
+        return "<< " + payload
     
     def trim_imu(self):
-        payload = 'SJ\n'
+        payload = 'SN!'
         self.ser.write(payload.encode('ascii'))
+        return "<< " + payload
+    
     
     def testing_function(self, payload):
         payload += "\n"
