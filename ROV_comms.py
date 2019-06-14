@@ -21,16 +21,31 @@ class ls_COM_ports(QThread):
             
         print("Port listing thread terminating")
 
-class Serial: 
+class Serial(QThread): 
     """
     port  --> COM(X) for windows systems, dev/tty/USB(X) for linux based system
     baud_rate ---> {9600, 152000.. etc}
     All messages sent from the ROV should be terminated with '\n'
     """
-    def __init__(self, baud_rate = 115200):
-        self.ser = serial.Serial(timeout=0.1)
-        self.ser.baudrate = baud_rate
+    signal = pyqtSignal(str)
     
+    telemetry = {
+            "temp" : "N/A",
+            "pH" : "N/A",
+            "humidity" : "N/A",
+            "depth" : "N/A",
+            "roll" : "N/A",
+            "pitch" : "N/A"
+            }
+    
+    def __init__(self, baud_rate = 115200, parent=None):
+        QThread.__init__(self, parent)
+        self.ser = serial.Serial(timeout=0.01)
+        self.ser.baudrate = baud_rate
+        
+        self.running = True
+        self.Tx_payload_queue = []
+        
     def update_port(self, new_port):
         self.ser.port = new_port
         self.ser.open()
@@ -38,8 +53,54 @@ class Serial:
     
     def is_open(self):
         return self.seris_open
+    
+    def run(self):
+        
+        while self.running:
+            #--Rx-------------------------------------------------------------#
+            
+#            print(data)
+            try:
+                data = self.ser.readline().strip().decode('ascii')
+                print(data)
+#                if data[0] == "R":
+#                    if data[1] == "A": # Temprature
+#                        self.telemetry["temp"] = str(data[2:])
+#                    
+#                    elif data[1] == "B": # humidity:
+#                        self.telemetry["pH"] = str(data[2:])
+#                    
+#                    elif data[1] == "C": # roll angle
+#                        self.telemetry["depth"] = str(data[2:])
+#                    
+#                    elif data[1] == "D": # pitch angle
+#                        self.telemetry["roll"] = str(data[2:])
+#                        
+#                    elif data[1] == "E": # pitch angle
+#                        self.telemetry["pitch"] = str(data[2:])
+#                    
+#                    elif data[1] == "F": # pitch angle
+#                        self.telemetry["humidity"] = str(data[2:])
+#                    
+#                    else:
+#                         self.signal.emit(">> Error: undefined message payload.")
+#                         
+#                else:
+#                    self.signal.emit(">> Error: missing \"R\" at the start of the message.")
+#             
+#                self.signal.emit(">> " + data)
+                
+            except Exception as e:
+                print(e)
+#                self.signal.emit("ERROR: Issue with data received:")
+#                self.signal.emit(str(e))
+            
+       
+            
+            time.sleep(0.01)
         
     def end_comms(self):
+        self.running = False
         self.ser.close()
         print("Serial port closed")
     

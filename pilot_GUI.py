@@ -108,6 +108,8 @@ class Window(QMainWindow):
         
         self.serial_commuincation_status = False
         self.comms = ROV_comms.Serial()
+        self.comms.start()
+        
         self.ls_COM_ports_thread = ROV_comms.ls_COM_ports()
         self.ls_COM_ports_thread.signal.connect(self.update_COMport_list)
         self.ls_COM_ports_thread.start()
