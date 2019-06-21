@@ -87,12 +87,12 @@ class Serial(QThread):
                          
                 else:
                     self.signal.emit(">> Error: missing \"R\" at the start of the message.")
-                    self.signal.emit(">> " + data)
+                self.signal.emit(">> " + data)
                 
             except Exception as e:
-#                print(e)
-                self.signal.emit("ERROR: Issue with data received:")
-                self.signal.emit(str(e))
+                print(e)
+#                self.signal.emit("ERROR: Issue with data received:")
+#                self.signal.emit(str(e))
             
             time.sleep(0.01)
         
@@ -125,28 +125,36 @@ class Serial(QThread):
         self.ser.write(payload.encode('ascii'))
         return "<< " + payload
     
-    def set_manipulator(self, manipulator):
+    def set_manipulator(self, manipulator, state):
         
-        if manipulator == "gripper": 
-            payload = 'SF!'
+        if manipulator == "dispenser": 
+            payload = 'SF'
         elif manipulator == "cannon_gripper": 
-            payload = 'SG!'
+            payload = 'SG'
+        elif manipulator == "gripper": 
+            payload = 'SH'
         elif manipulator == "lift_bag": 
-            payload = 'SH!'
-        elif manipulator == "dispenser": 
-            payload = 'SI!'
-        elif manipulator == "micro_rov_out": 
-            payload = 'SJ0!'
-        elif manipulator == "micro_rov_in": 
-            payload = 'SJ1!'
-        elif manipulator == "micro_rov_stop": 
-            payload = 'SJ2!'
+            payload = 'SI'
+        elif manipulator == "micro_rov": 
+            payload = 'SJ'
         
+        payload += str(state) + '!'
+        print(payload)
         self.ser.write(payload.encode('ascii'))
         return "<< " + payload
     
     def set_camera(self, channel, camera):
-        payload = 'SH' + channel + camera + '!'
+        if channel == 1:
+            payload = 'SK'+ str(camera) + '!'
+        elif channel == 2:
+            payload = 'SL' + str(camera) + '!'
+        
+        print(payload)
+        self.ser.write(payload.encode('ascii'))
+        return "<< " + payload
+    
+    def pid_init(self, t1, t2, f1, f2):
+        payload = 'SO' + str(t1) + str(t2) + str(f1) + str(f2) +  '!'
         self.ser.write(payload.encode('ascii'))
         return "<< " + payload
     
@@ -162,10 +170,10 @@ class Serial(QThread):
     
     
     def testing_function(self, payload):
-        payload += "\n"
-        self.ser.write(payload.encode('ascii'))
+        payload += "!"
+#        self.ser.write(payload.encode('ascii'))
         data = self.ser.readline().strip().decode('ascii')
-        print(data)
+#        print(data)
         
 if __name__ == "__main__":
     comms = Serial()

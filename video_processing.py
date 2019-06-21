@@ -13,9 +13,10 @@ import numpy as np
 class LineFollow(QThread):
     signal = pyqtSignal(list)
     
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, flip=1):
         QThread.__init__(self, parent)
         self.running = True
+        self.flip = flip
         self.new_frame_available = False
     
     def get_new_frame(self, frame, ret):
@@ -122,20 +123,29 @@ class LineFollow(QThread):
                     if current_direction == 0 or current_direction == 2: #When in vertical motion
                         if COG_x_coordinate > width + tracking_x_offset:
                             horizontal_motion = "D_Right"
+                            self.thruster_power = [1600,1300,1600, 1300]
                         elif COG_x_coordinate < width - tracking_x_offset:
                             horizontal_motion = "D_Left" 
+                            self.thruster_power = [1300,1600,1300, 1600]
                         else:
                             horizontal_motion = "D_on track"
+                            self.thruster_power = [1500,1500,1500, 1500]
                         
                     elif current_direction == 1 or current_direction == 3: #When in horizontal motion
                         if COG_y_coordinate < depth + tracking_y_offset:
                             vetical_motion = "D_Up"
+                            self.thruster_power += [1600, 1600]
                         elif COG_y_coordinate > y_centre - tracking_y_offset:
                             vetical_motion = "D_Down"
+                            self.thruster_power += [1400, 1400]
                         else:
                             vetical_motion = "D_on track"
-                except:
-                    pass
+                            self.thruster_power += [1500, 1500]
+                    
+                    self.thruster_power = [a*b for a,b in zip(self.thruster_power,self.thruster_flip)]
+                    
+                except Exception  as e:
+                    print(e)
                 
                 # printing outcome
                 print(vetical_motion, horizontal_motion)

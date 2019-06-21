@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap, QImage, QPainter
+from math import pi
 import video_processing
 import configparser
 import ROV_comms
@@ -9,6 +10,7 @@ import pygame
 import time
 import sys
 import cv2
+
 
 class get_video_feed(QThread):
     def __init__(self, channel, parent=None):
@@ -84,6 +86,13 @@ class Window(QMainWindow):
             "X" : {"num" : 2, "prev_state" : False},
             "Y" : {"num" : 3, "prev_state" : False}
             }
+   
+    actuator_states = {
+            "gripper" : 0,
+            "cannon_gripper" : 0,
+            "dispenser" : 0,
+            "lift_bag" : 0,
+            }
     
     thrusters_power = [500]*6
     thrusters_names = ["fl" , "fr", "br", "bl", "vf", "vb"]
@@ -119,9 +128,9 @@ class Window(QMainWindow):
         self.feed_1 = get_video_feed("rtsp://192.168.0.103/user=admin&password=&channel=1&stream=0.sdp?")
         self.feed_1.start()
         
-        #self.feed_2 = get_video_feed("rtsp://192.168.0.103/user=admin&password=&channel=3&stream=0.sdp?")
-        #self.feed_2.signal.connect(self.display_feed_2)
-        #self.feed_2.start()
+#        self.feed_2 = get_video_feed("rtsp://192.168.0.103/user=admin&password=&channel=3&stream=0.ssdp?")
+#        self.feed_2.signal.connect(self.display_feed_2)
+#        self.feed_2.start()
         
         try:
             self.my_joystick = pygame.joystick.Joystick(0)
@@ -186,16 +195,63 @@ class Window(QMainWindow):
         self.d_pitch_gain_textbox.editingFinished.connect(lambda:self.change_controller_gains("pitch"))
         #self.default_pitch_controller_btn.clicked.connect(lambda:self.reset_controller_gains_to_default("pitch")) 
         
+        #Actuator_control
+        self.gripper_button.clicked.connect(lambda:self.set_actuator("gripper"))
+#        self.cannon_gripper_button.clicked.connect(lambda:self.set_actuator("cannon_gripper"))
+        self.dispenser_button.clicked.connect(lambda:self.set_actuator("dispenser"))
+        self.lift_bag_button.clicked.connect(lambda:self.set_actuator("lift_bag"))
+        
+        #1 2 3 9 10 11 12
+        self.main_forward_cam_btn.clicked.connect(lambda:self.comms.set_camera(2, 9)) #2 10
+        self.main_backward_cam_btn.clicked.connect(lambda:self.comms.set_camera(1, 2))
+        self.micro_rov_cam_btn.clicked.connect(lambda:self.comms.set_camera(2, 11)) # 1 3
+        
+        self.gripper_cam_btn.clicked.connect(lambda:self.comms.set_camera(2, 10)) # 2 9
+        self.discpenser_cam_btn.clicked.connect(lambda:self.comms.set_camera(1, 1))
+        self.cannon_gripper_cam_btn.clicked.connect(lambda:self.comms.set_camera(1, 3)) ##2 11
+#        self.sensor_cam_btn.clicked.connect(lambda:self.comms.set_camera(2, 12))
+        
+        
         self.line_tracking_btn.clicked.connect(self.line_follower)
         self.shape_detection_btn.clicked.connect(self.shape_detector)
+        self.calc_volume_btn.clicked.connect(self.volume_calculator)
+        self.calc_force_btn.clicked.connect(self.force_calculator)
         
+        self.feed_rov_btn.clicked.connect(lambda:self.comms.set_manipulator("micro_rov", 0))
+        self.stop_rov_btn.clicked.connect(lambda:self.comms.set_manipulator("micro_rov", 2))
+        self.retract_rov_btn.clicked.connect(lambda:self.comms.set_manipulator("micro_rov", 1))
+        
+        self.temp_lol=1
+    
+        
+        
+        
+    def volume_calculator(self):
+        L =float(self.cannon_length_textbox.text())
+        big_r = float(self.cannon_big_textbox.text())
+        small_r = float(self.cannon_small_textbox.text())
+        bore = float(self.cannon_bore_textbox.text())
+        
+        cannon_volume  =  ((1/3)*pi*L*(big_r**2 + small_r**2 + (big_r*small_r))) - (L*pi*(bore**2))
+        self.cannon_volume_textbox.setText('%.2f'%cannon_volume)
+        
+    def force_calculator(self):
+        volume = float(self.cannon_volume_textbox.text())
+        if self.iron_radiobtn.isChecked():
+            gravity_force = 9.81 * (volume * (10 ** -6)) * 7870
+        elif self.bronze_radiobtn.isChecked():
+            gravity_force = 9.81 * (volume * (10 ** -6)) * 8030
+            
+        bouyancy_force = 9.81 * (volume * (10 ** -6)) * 997
+        self.cannon_force_textbox.setText('%.2f'%(gravity_force-bouyancy_force))
+    
     def load_config_file(self):
         #Loading thrusters flip from config file
         self.config = configparser.ConfigParser()
         self.config.read('rov_config.ini')
         
         #loading directions from the config file
-        self.thrusters_flip = []
+        self.thrusters_flip = [] 
         self.thrusters_flip.append(int(self.config['Directions']['fl'])) 
         self.thrusters_flip.append(int(self.config['Directions']['fr'])) 
         self.thrusters_flip.append(int(self.config['Directions']['br']))
@@ -240,6 +296,8 @@ class Window(QMainWindow):
         self.d_pitch_gain_textbox.setText(self.config['pitch']['d'])
         
         self.debug_input_textbox.editingFinished.connect(self.send_debug_meesage)
+        
+
         
     def display_feed_1(self, image):
         try:
@@ -323,7 +381,8 @@ class Window(QMainWindow):
             else:
                 self.display_feed_1(self.feed_1.return_image)
         except Exception  as e:
-            self.debug_response.append("ERROR: " + str(e) + " update_ui")
+            print(e)
+            #self.debug_response.append("ERROR: " + str(e) + " update_ui")
             #self.debug_response.append("ERROR: Camera error, check line 251.")
     
     def update_ui(self):
@@ -396,6 +455,14 @@ class Window(QMainWindow):
     
     def send_controls(self):
         try:
+            
+            if self.temp_lol:
+                self.temp_lol = 0
+                self.comms.set_pid_controller_state("depth", 1)
+                self.comms.set_pid_controller_gains("depth",1, 0 , 0)
+                state = self.comms.pid_init(self.thrusters_order[4], self.thrusters_order[5], self.config['Order']['vf'], self.config['Order']['vb'])
+                self.debug_response.append(state)
+                
             self.LTX_Axis = self.my_joystick.get_axis(0)
             self.LTY_Axis = self.my_joystick.get_axis(1) * -1
             self.RTX_Axis = self.my_joystick.get_axis(4)
@@ -424,41 +491,41 @@ class Window(QMainWindow):
                 self.thrusters_power[4] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[4]) #Vertical front
                 self.thrusters_power[5] = int(500 + self.vertical_power * self.vertical_factor * self.power_factor * self.thrusters_flip[5]) #Vertical back
                 
-            string  = str(self.thrusters_power[self.thrusters_order.index(1)])
-            string += str(self.thrusters_power[self.thrusters_order.index(2)])
-            string += str(self.thrusters_power[self.thrusters_order.index(3)])
-            string += str(self.thrusters_power[self.thrusters_order.index(4)])
-            string += str(self.thrusters_power[self.thrusters_order.index(5)])
+            string  = str(self.thrusters_power[self.thrusters_order.index(1)]) + ","
+            string += str(self.thrusters_power[self.thrusters_order.index(2)]) + ","
+            string += str(self.thrusters_power[self.thrusters_order.index(3)]) + ","
+            string += str(self.thrusters_power[self.thrusters_order.index(4)]) + ","
+            string += str(self.thrusters_power[self.thrusters_order.index(5)]) + ","
             string += str(self.thrusters_power[self.thrusters_order.index(6)])
 
             state = self.comms.set_thrsuters(string)
             self.debug_response.append(state)
             
-            if self.button_info["A"]["prev_state"] != self.my_joystick.get_button(self.button_info["A"]["num"]):
-               
-                self.button_info["A"]["prev_state"] = self.my_joystick.get_button(self.button_info["A"]["num"]) 
-                
-                state = self.comms.set_gripper(self.button_info["A"]["prev_state"])
-                
-                if self.button_info["A"]["prev_state"]: 
-                    self.gripper_button.setStyleSheet('''background-color: green;''')
-                else:
-                    self.gripper_button.setStyleSheet('''background-color: red;''')
-                
-                self.debug_response.append(">> " + state)
-            
-            if self.button_info["B"]["prev_state"] != self.my_joystick.get_button(self.button_info["B"]["num"]):
-               
-                self.button_info["B"]["prev_state"] = self.my_joystick.get_button(self.button_info["B"]["num"]) 
-                
-                state = self.comms.testing_function("SG" + str(self.button_info["B"]["prev_state"]) + "aa")
-        
-                if self.button_info["B"]["prev_state"]: 
-                    self.lift_bag_button.setStyleSheet('''background-color: green;''')
-                else:
-                    self.lift_bag_button.setStyleSheet('''background-color: red;''')
-                
-                self.debug_response.append(">> " + state)        
+#            if self.button_info["A"]["prev_state"] != self.my_joystick.get_button(self.button_info["A"]["num"]):
+#               
+#                self.button_info["A"]["prev_state"] = self.my_joystick.get_button(self.button_info["A"]["num"]) 
+#                
+#                state = self.comms.set_gripper(self.button_info["A"]["prev_state"])
+#                
+#                if self.button_info["A"]["prev_state"]: 
+#                    self.gripper_button.setStyleSheet('''background-color: green;''')
+#                else:
+#                    self.gripper_button.setStyleSheet('''background-color: red;''')
+#                
+#                self.debug_response.append(">> " + state)
+#            
+#            if self.button_info["B"]["prev_state"] != self.my_joystick.get_button(self.button_info["B"]["num"]):
+#               
+#                self.button_info["B"]["prev_state"] = self.my_joystick.get_button(self.button_info["B"]["num"]) 
+#                
+#                state = self.comms.testing_function("SG" + str(self.button_info["B"]["prev_state"]) + "aa")
+#        
+#                if self.button_info["B"]["prev_state"]: 
+#                    self.lift_bag_button.setStyleSheet('''background-color: green;''')
+#                else:
+#                    self.lift_bag_button.setStyleSheet('''background-color: red;''')
+#                
+#                self.debug_response.append(">> " + state)        
             
 # =============================================================================
 #             if self.button_info["x"]["prev_state"] != self.my_joystick.get_button(self.button_info["x"]["num"]):
@@ -495,6 +562,15 @@ class Window(QMainWindow):
             #print("Joystick not connected LOL")
             #self.joystick_connection_state=False
     
+    def set_actuator(self, actuator):
+        if self.actuator_states[actuator] == 1:
+            self.actuator_states[actuator] = 0
+        else:
+             self.actuator_states[actuator] = 1
+        
+        state = self.comms.set_manipulator(actuator, self.actuator_states[actuator])
+        self.debug_response.append(state)
+    
     def manual_thrusters_control(self):
         self.thrusters_power[0] = int(self.FL_manual_power.text()) #Front right
         self.thrusters_power[1] = int(self.FR_manual_power.text()) #Front left
@@ -503,17 +579,17 @@ class Window(QMainWindow):
         self.thrusters_power[4] = int(self.VF_manual_power.text()) #Vertical front
         self.thrusters_power[5] = int(self.VB_manual_power.text()) #Vertical back
         
-        string  = str(self.thrusters_power[self.thrusters_order.index(1)])
-        string += str(self.thrusters_power[self.thrusters_order.index(2)])
-        string += str(self.thrusters_power[self.thrusters_order.index(3)])
-        string += str(self.thrusters_power[self.thrusters_order.index(4)])
-        string += str(self.thrusters_power[self.thrusters_order.index(5)])
+        string  = str(self.thrusters_power[self.thrusters_order.index(1)]) + ","
+        string += str(self.thrusters_power[self.thrusters_order.index(2)]) + ","
+        string += str(self.thrusters_power[self.thrusters_order.index(3)]) + ","
+        string += str(self.thrusters_power[self.thrusters_order.index(4)]) + ","
+        string += str(self.thrusters_power[self.thrusters_order.index(5)]) + ","
         string += str(self.thrusters_power[self.thrusters_order.index(6)])
 
         state = self.comms.set_thrsuters(string)
         #self.debug_response.append("Debug: power" + str(self.thrusters_power))
         #self.debug_response.append("Debug: order" + str(self.thrusters_order))
-        self.debug_response.append(">> " + state)
+        self.debug_response.append(state)
     
     def edit_thrusters_order(self, thruster, thruster_number):            
         index = self.thrusters_order.index(int(thruster.text()))
